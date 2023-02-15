@@ -1,51 +1,54 @@
-<script>
-	import Header from './Header.svelte';
-	import './styles.css';
+<script lang="ts">
+	import { page } from '$app/stores';
+	import '@skeletonlabs/skeleton/themes/theme-skeleton.css';
+	import '@skeletonlabs/skeleton/styles/all.css';
+	import '../app.postcss';
+	import { Drawer, drawerStore } from '@skeletonlabs/skeleton';
+	import { navigating } from '$app/stores';
+	import { AppBar, AppShell } from '@skeletonlabs/skeleton';
+	import Navigation from '$lib/Navigation.svelte';
+
+	function drawerOpen(): void {
+		drawerStore.open({});
+	}
+
+	$: classesSidebarLeft = $page.url.pathname === '/' ? 'w-0' : 'w-0 lg:w-64';
 </script>
 
-<div class="app">
-	<Header />
+<Drawer>
+	<h2 class="p-4">Navigation</h2>
+	<hr />
+	<Navigation />
+</Drawer>
 
-	<main>
-		<slot />
-	</main>
+<AppShell slotSidebarLeft="bg-surface-500/5 w-0 lg:w-64 ">
+	<svelte:fragment slot="header">
+		<!-- App Bar -->
+		<AppBar>
+			<svelte:fragment slot="lead">
+				<div class="flex items-center">
+					<button class="lg:hidden btn btn-sm mr-4" on:click={drawerOpen}>
+						<span>
+							<svg viewBox="0 0 100 80" class="fill-token w-4 h-4">
+								<rect width="100" height="20" />
+								<rect y="30" width="100" height="20" />
+								<rect y="60" width="100" height="20" />
+							</svg>
+						</span>
+					</button>
+					<strong class="text-xl uppercase">Skeleton</strong>
+				</div>
+			</svelte:fragment>
+			<svelte:fragment slot="trail">
+				<a class="btn btn-sm" href="/">Home</a>
+				<a class="btn btn-sm" href="/about">About</a>
+			</svelte:fragment>
+		</AppBar>
+	</svelte:fragment>
 
-	<footer>footer</footer>
-</div>
+	<svelte:fragment slot="sidebarLeft">
+		<Navigation />
+	</svelte:fragment>
 
-<style>
-	.app {
-		display: flex;
-		flex-direction: column;
-		min-height: 100vh;
-	}
-
-	main {
-		flex: 1;
-		display: flex;
-		flex-direction: column;
-		padding: 1rem;
-		width: 100%;
-		max-width: 64rem;
-		margin: 0 auto;
-		box-sizing: border-box;
-	}
-
-	footer {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		padding: 12px;
-	}
-
-	footer a {
-		font-weight: bold;
-	}
-
-	@media (min-width: 480px) {
-		footer {
-			padding: 12px 0;
-		}
-	}
-</style>
+	<slot />
+</AppShell>
