@@ -1,25 +1,26 @@
-<script>
-	let visible = false;
+<script lang="ts">
+	import type { Snapshot } from './$types';
+
+	let comment = '';
+	let second = '';
+
+	export const snapshot = {
+		capture: () => ({ comment, second }),
+		restore: (value) => {
+			comment = value.comment;
+			second = value.second;
+		}
+	} satisfies Snapshot;
 </script>
 
-<svelte:head>
-	<title>Home</title>
-	<meta name="description" content="Svelte demo app" />
-</svelte:head>
-
-<section>hello world</section>
-<button class="btn variant-filled-primary" on:click={() => (visible = !visible)}>toggle</button>
-
-{#if visible}
-	<aside class="alert variant-ghost">
-		<!-- Icon -->
-		<div>(icon)</div>
-		<!-- Message -->
-		<div class="alert-message">
-			<h3>(title)</h3>
-			<p>message</p>
-		</div>
-		<!-- Actions -->
-		<div class="alert-actions">(buttons)</div>
-	</aside>
-{/if}
+<form method="POST">
+	<label for="comment">Comment</label>
+	<textarea id="comment" bind:value={comment} />
+	<input type="text" bind:value={second} />
+	<a href="/about">Post comment</a>
+</form>
+<hr />
+<div>haah</div>
+<del><s>Always</s> Gonna Give You Up</del>
+<del>sasds</del>
+<ins cite="https://youtu.be/dQw4w9WgXcQ" datetime="10-31-2022">insert</ins>

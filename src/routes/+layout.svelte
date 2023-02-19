@@ -21,7 +21,8 @@
 	<Navigation />
 </Drawer>
 
-<AppShell slotSidebarLeft="bg-surface-500/5 w-0 lg:w-64 ">
+<!-- <AppShell slotSidebarLeft="bg-surface-500/5 w-0 lg:w-64 "> -->
+<AppShell slotPageContent=" bg-surface-500/5">
 	<svelte:fragment slot="header">
 		<!-- App Bar -->
 		<AppBar>
@@ -36,19 +37,21 @@
 							</svg>
 						</span>
 					</button>
-					<strong class="text-xl uppercase">Skeleton</strong>
+					<!-- <a href="/">
+						<strong class="text-xl uppercase"></strong>
+					</a> -->
 				</div>
 			</svelte:fragment>
 			<svelte:fragment slot="trail">
-				<a class="btn btn-sm" href="/">Home</a>
-				<a class="btn btn-sm" href="/about">About</a>
+				<a class="btn btn-sm" href="/">市场</a>
+				<a class="btn btn-sm" href="/my">我的</a>
 			</svelte:fragment>
 		</AppBar>
 	</svelte:fragment>
 
-	<svelte:fragment slot="sidebarLeft">
+	<!-- <svelte:fragment slot="sidebarLeft">
 		<Navigation />
-	</svelte:fragment>
+	</svelte:fragment> -->
 
 	<slot />
 </AppShell>
