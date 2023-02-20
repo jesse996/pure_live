@@ -3,7 +3,7 @@
 	import '@skeletonlabs/skeleton/themes/theme-skeleton.css';
 	import '@skeletonlabs/skeleton/styles/all.css';
 	import '../app.postcss';
-	import { Drawer, drawerStore } from '@skeletonlabs/skeleton';
+	import { Drawer, drawerStore, ProgressRadial } from '@skeletonlabs/skeleton';
 	import { navigating } from '$app/stores';
 	import { AppBar, AppShell } from '@skeletonlabs/skeleton';
 	import Navigation from '$lib/Navigation.svelte';
@@ -52,6 +52,10 @@
 	<!-- <svelte:fragment slot="sidebarLeft">
 		<Navigation />
 	</svelte:fragment> -->
-
+	{#if $navigating}
+		<div class="w-24 h-24 absolute inset-0 m-auto">
+			<ProgressRadial />
+		</div>
+	{/if}
 	<slot />
 </AppShell>
