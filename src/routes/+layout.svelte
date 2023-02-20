@@ -22,7 +22,7 @@
 </Drawer>
 
 <!-- <AppShell slotSidebarLeft="bg-surface-500/5 w-0 lg:w-64 "> -->
-<AppShell slotPageContent=" bg-surface-500/5">
+<AppShell slotPageContent=" bg-surface-500/5" regionPage="hide-scrollbar">
 	<svelte:fragment slot="header">
 		<!-- App Bar -->
 		<AppBar>
