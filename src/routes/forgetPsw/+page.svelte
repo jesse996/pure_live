@@ -9,6 +9,6 @@
 	<label for="newPsw">新密码</label>
 	<input type="password" name="newPsw" id="newPsw" class="input-group" />
 	<label for="newPsw">重复新密码</label>
-	<input type="password" name="newPsw" id="newPsw" class="input-group" />
+	<input type="password" name="confirmNewPsw" id="confirmNewPsw" class="input-group" />
 	<button class="btn variant-filled-primary w-full mt-5">确认</button>
 </div>
