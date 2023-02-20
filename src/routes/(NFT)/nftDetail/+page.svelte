@@ -5,7 +5,11 @@
 />
 <div class="bg-surface-50 px-5 pt-4 pb-2">
 	<div class="text-xs">该作品拥有官方认证</div>
-	<div class="text-2xl font-bold mt-2">凌霄殿#413</div>
+	<div class="flex justify-between items-center mt-2">
+		<div class="text-2xl font-bold ">凌霄殿#413</div>
+		<div class="text-red-500 font-bold text-lg">￥999</div>
+	</div>
+	<div class="text-gray-400 mt-3">评估价：￥900</div>
 </div>
 
 <div class="bg-surface-50 px-5 mt-2 py-2">
