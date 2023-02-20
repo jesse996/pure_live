@@ -37,9 +37,9 @@
 							</svg>
 						</span>
 					</button>
-					<!-- <a href="/">
-						<strong class="text-xl uppercase"></strong>
-					</a> -->
+					<a href="/">
+						<strong class="text-xl uppercase">数字藏品</strong>
+					</a>
 				</div>
 			</svelte:fragment>
 			<svelte:fragment slot="trail">

@@ -8,7 +8,6 @@ specifiers:
   '@sveltejs/adapter-cloudflare': ^2.0.1
   '@sveltejs/adapter-node': ^1.2.0
   '@sveltejs/kit': ^1.5.0
-  '@tabler/icons-svelte': ^2.4.0
   '@types/cookie': ^0.5.1
   '@typescript-eslint/eslint-plugin': ^5.45.0
   '@typescript-eslint/parser': ^5.45.0
@@ -31,7 +30,6 @@ specifiers:
   vite: ^4.0.0
 
 dependencies:
-  '@tabler/icons-svelte': 2.4.0_svelte@3.55.1
   dotenv: 16.0.3
   lucide-svelte: 0.115.0_svelte@3.55.1
 
@@ -500,19 +498,6 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
-
-  /@tabler/icons-svelte/2.4.0_svelte@3.55.1:
-    resolution: {integrity: sha512-toAl/Mh4WuES9N8i6+Ya2hIieTLllQcOF++WxTRi0Pm6jpZDPtDufGFxTQ9ZSwAZKVWDQXgjB96Oaa7Dhca4IQ==}
-    peerDependencies:
-      svelte: ^3.49.0
-    dependencies:
-      '@tabler/icons': 2.4.0
-      svelte: 3.55.1
-    dev: false
-
-  /@tabler/icons/2.4.0:
-    resolution: {integrity: sha512-JZY9Kk3UsQoqp7Rw/BuWw1PrkRwv5h0psjJBbj+Cn9UVyhdzr5vztg2mywXBAJ+jFBUL/pjnVcIvOzKFw4CXng==}
-    dev: false
 
   /@types/cookie/0.5.1:
     resolution: {integrity: sha512-COUnqfB2+ckwXXSFInsFdOAWQzCCx+a5hq2ruyj+Vjund94RJQd4LG2u9hnvJrTgunKAaax7ancBYlDrNYxA0g==}

@@ -39,7 +39,6 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@tabler/icons-svelte": "^2.4.0",
 		"dotenv": "^16.0.3",
 		"lucide-svelte": "^0.115.0"
 	}
