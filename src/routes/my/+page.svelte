@@ -21,7 +21,9 @@
 			</div>
 		</div>
 
-		<Settings />
+		<a href="userInfo" class="">
+			<Settings />
+		</a>
 	</div>
 	<hr class="my-3" />
 
