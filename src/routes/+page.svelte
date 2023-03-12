@@ -6,9 +6,6 @@
 	let comment = '';
 	let second = '';
 
-	export let form: ActionData;
-	$: console.log(form);
-
 	export const snapshot = {
 		capture: () => ({ comment, second }),
 		restore: (value) => {
