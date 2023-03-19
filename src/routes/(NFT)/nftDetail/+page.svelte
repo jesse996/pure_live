@@ -20,6 +20,66 @@
 		debitis ab, ullam ea ratione.
 	</div>
 </div>
+<div class="bg-surface-50 px-5 mt-2 py-2 ">
+	<div class="flex justify-start items-center space-x-3">
+		<img
+			src="https://static.ibox.art/file/oss/test/image/nft-goods/9fb9a8293a3941a7861f856638dade4d.png"
+			alt=""
+			class="w-10 h-10 rounded"
+		/>
+		<div>
+			<div>name <span class="text-slate-400 bg-blue-100 rounded-lg px-2 ">创作者</span></div>
+			<div class="text-slate-400">cfx:0xbe9b...a8d2</div>
+		</div>
+	</div>
+	<hr />
+	<div class="flex justify-start items-center space-x-3">
+		<img
+			src="https://static.ibox.art/file/oss/test/image/portrait/3842ff4f575e44a0bd42db5a798ddd99.png?style=st"
+			alt=""
+			class="w-10 h-10 rounded"
+		/>
+		<div>
+			<div>name <span class="text-slate-400 bg-blue-100 rounded-lg px-2 ">所有者</span></div>
+			<div class="text-slate-400">cfx:0x0c87...0a81</div>
+		</div>
+	</div>
+</div>
+<div class="bg-surface-50 px-5 mt-2 py-2 mb-40">
+	<h2 class="text-lg mb-2">交易记录</h2>
+	<div class="table-container">
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>用户</th>
+					<th>操作</th>
+					<th>交易价格</th>
+					<th>上架时间</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>海空</td>
+					<td>购买</td>
+					<td>￥999</td>
+					<td>2023-2-13 10:24:32</td>
+				</tr>
+				<tr>
+					<td>小熊猫</td>
+					<td>购买</td>
+					<td>￥999</td>
+					<td>2023-02-11 14:03:22</td>
+				</tr>
+				<tr>
+					<td>ahh18</td>
+					<td>铸造</td>
+					<td>￥999</td>
+					<td>2023-02-11 11:02:02</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
 <div>
 	<button class="btn variant-filled-secondary absolute bottom-0 inset-x-5">￥999 购买 </button>
 </div>
