@@ -1,4 +1,4 @@
-<table class="table-auto border border-collapse ">
+<table class="table-auto border border-collapse text-center">
 	<thead class=" border">
 		<tr class=" border">
 			<th class=" border">原图</th>
@@ -19,7 +19,7 @@
 	</tbody>
 </table>
 
-<table class="table-auto border border-collapse ">
+<table class="table-auto border border-collapse text-center">
 	<thead class=" border">
 		<tr class=" border">
 			<th class=" border">原图</th>
@@ -40,7 +40,7 @@
 	</tbody>
 </table>
 
-<table class="table-auto border border-collapse ">
+<table class="table-auto border border-collapse text-center">
 	<thead class=" border">
 		<tr class=" border">
 			<th class=" border">原图</th>
@@ -63,7 +63,7 @@
 
 <br />
 
-<table class="table-auto border border-collapse ">
+<table class="table-auto border border-collapse text-center">
 	<thead class=" border">
 		<tr class=" border">
 			<th class=" border">图1</th>
