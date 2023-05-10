@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	import { RadioGroup, RadioItem } from '@skeletonlabs/skeleton';
+	import { goto } from '$app/navigation';
+	import { RadioGroup, RadioItem, toastStore } from '@skeletonlabs/skeleton';
+	import { isLogin } from '../store';
 
 	let alignment: string = 'code';
 </script>
@@ -27,6 +29,15 @@
 		<label for="password">密码</label>
 		<input type="password" name="password" id="password" class="input-group" />
 	{/if}
-	<button class="btn variant-filled-primary w-full my-5">登录</button>
+	<button
+		class="btn variant-filled-primary w-full my-5"
+		on:click={() => {
+			toastStore.trigger({ message: '登录成功', background: 'variant-filled-success' });
+			setTimeout(() => {
+				isLogin.set(true);
+				goto('/my');
+			}, 500);
+		}}>登录</button
+	>
 	<a class="unstyled " href="/forgetPsw">忘记密码</a>
 </div>

@@ -3,10 +3,11 @@
 	import '@skeletonlabs/skeleton/themes/theme-skeleton.css';
 	import '@skeletonlabs/skeleton/styles/all.css';
 	import '../app.postcss';
-	import { Drawer, drawerStore, ProgressRadial } from '@skeletonlabs/skeleton';
+	import { Drawer, drawerStore, ProgressRadial, Toast, toastStore } from '@skeletonlabs/skeleton';
 	import { navigating } from '$app/stores';
 	import { AppBar, AppShell } from '@skeletonlabs/skeleton';
 	import Navigation from '$lib/Navigation.svelte';
+	import { isLogin } from './store';
 
 	function drawerOpen(): void {
 		drawerStore.open({});
@@ -44,7 +45,11 @@
 			</svelte:fragment>
 			<svelte:fragment slot="trail">
 				<a class="btn btn-sm" href="/">市场</a>
-				<a class="btn btn-sm" href="/my">我的</a>
+				{#if $isLogin}
+					<a class="btn btn-sm" href="/my">我的</a>
+				{:else}
+					<a class="btn btn-sm" href="/login">登录</a>
+				{/if}
 			</svelte:fragment>
 		</AppBar>
 	</svelte:fragment>
@@ -57,5 +62,6 @@
 			<ProgressRadial />
 		</div>
 	{/if}
+	<Toast />
 	<slot />
 </AppShell>

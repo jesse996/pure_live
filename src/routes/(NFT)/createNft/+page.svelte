@@ -1,12 +1,19 @@
-<script>
+<script lang="ts">
 	import { FileButton, FileDropzone } from '@skeletonlabs/skeleton';
 	import { ImagePlus } from 'lucide-svelte';
+	let files: FileList;
+	$: {
+		console.log(files);
+	}
+	function handleChange(e) {
+		console.log(e);
+	}
 </script>
 
 <div class="p-5">
 	<div>铸造藏品</div>
 	<form method="post ">
-		<FileDropzone name="files">
+		<FileDropzone name="files" on:change={handleChange} bind:files>
 			<svelte:fragment slot="lead">
 				<ImagePlus class="mx-auto" />
 			</svelte:fragment>
