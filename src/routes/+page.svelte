@@ -18,13 +18,15 @@
 		}
 	} satisfies Snapshot;
 
-	let filterNftList = $homeNftList;
+	let filterNftList = $homeNftList.filter((it) => it.checkStatus == 1 && it.ownerId !== 1);
 
 	function handleSearch(event: KeyboardEvent & { currentTarget: EventTarget & HTMLInputElement }) {
 		if (event.key === 'Enter') {
 			$isLoading = true;
 			setTimeout(() => {
-				filterNftList = $homeNftList.filter((it) => it.name.includes(searchKey));
+				filterNftList = $homeNftList.filter((it) =>
+					it.name.toLocaleLowerCase().includes(searchKey.toLocaleLowerCase())
+				);
 				$isLoading = false;
 			}, 200);
 		}
@@ -53,7 +55,7 @@
 		// Matches the data-popup value on your popup element
 		target: 'popupFeatured',
 		// Defines which side of your trigger the popup will appear
-		placement: 'bottom'
+		placement: 'top'
 	};
 
 	let selectValue = '';
@@ -73,7 +75,7 @@
 	<div class="flex justify-end m-2">
 		<button use:popup={popupFeatured}> 筛选</button>
 		<ChevronDown />
-		<div class="card p-4 w-72 shadow-xl" data-popup="popupFeatured">
+		<div class="card p-4 w-72 shadow-xl z-100" data-popup="popupFeatured">
 			<ListBox>
 				<ListBoxItem
 					bind:group={selectValue}
@@ -113,6 +115,7 @@
 				number={nft.number}
 				all={nft.all}
 				price={nft.price}
+				nftId={nft.id}
 			/>
 		{/each}
 	</div>

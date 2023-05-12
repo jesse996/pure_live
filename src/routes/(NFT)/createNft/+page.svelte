@@ -2,14 +2,22 @@
 	import { goto } from '$app/navigation';
 	import { FileButton, FileDropzone, toastStore } from '@skeletonlabs/skeleton';
 	import { ImagePlus } from 'lucide-svelte';
+	import { homeNftList, nftId } from '../../store';
 	let files: FileList;
 	let img: string;
 	let name: string;
 	let desc: string;
 	let num: number;
+	let price: number;
+	let filename: string;
+
+	let btnDisabled = false;
 	$: {
 		console.log(files);
+
 		if (files && files.length > 0) {
+			filename = files[0].name;
+
 			let reader = new FileReader();
 			reader.readAsDataURL(files[0]);
 			reader.onload = function () {
@@ -41,26 +49,53 @@
 
 		<label class="label">
 			<span>名称</span>
-			<input class="input py-2" bind:value={name} />
+			<input class="input py-2 px-3" bind:value={name} />
 		</label>
 		<label class="label">
 			<span>发行数量</span>
-			<input class="input py-2" type="number" bind:value={num} />
+			<input class="input py-2 px-3" type="number" bind:value={num} />
+		</label>
+		<label class="label">
+			<span>发行价(元)</span>
+			<input class="input py-2 px-3" bind:value={price} />
 		</label>
 		<label class="label">
 			<span>描述</span>
-			<input class="textarea py-10" bind:value={desc} />
+			<input class="textarea py-10 px-3" bind:value={desc} />
 		</label>
 		<button
 			class="btn variant-filled-secondary w-full mt-5 "
 			on:click={() => {
+				if (!(img && name && desc && num && price)) {
+					toastStore.trigger({ message: '请填写完整信息', background: 'variant-filled-error' });
+					return;
+				}
+				btnDisabled = true;
 				toastStore.trigger({ message: '铸造藏品提交成功', background: 'variant-filled-success' });
-				setTimeout(() => {
-					console.log(img);
+				$nftId += 1;
+				console.log('nftId:', $nftId);
+				$homeNftList = [
+					...$homeNftList,
+					{
+						id: $nftId,
+						name,
+						desc,
+						all: num,
+						img: './' + filename,
+						number: 1,
+						price,
+						createTime: '2023-0512',
+						checkStatus: 0,
+						creatorId: 1,
+						ownerId: 1
+					}
+				];
 
-					goto(`/my?tab=1&img=${img}&name=${name}&num=${num}&desc=${desc}`);
+				setTimeout(() => {
+					goto(`/my?tab=1`);
 				}, 500);
-			}}>提交</button
+			}}
+			disabled={btnDisabled}>提交</button
 		>
 	</form>
 </div>

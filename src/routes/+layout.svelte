@@ -3,13 +3,22 @@
 	import '@skeletonlabs/skeleton/themes/theme-skeleton.css';
 	import '@skeletonlabs/skeleton/styles/all.css';
 	import '../app.postcss';
-	import { Drawer, drawerStore, ProgressRadial, Toast, toastStore } from '@skeletonlabs/skeleton';
+	import {
+		Drawer,
+		drawerStore,
+		Modal,
+		ProgressRadial,
+		Toast,
+		toastStore
+	} from '@skeletonlabs/skeleton';
 	import { navigating } from '$app/stores';
 	import { AppBar, AppShell } from '@skeletonlabs/skeleton';
 	import Navigation from '$lib/Navigation.svelte';
 	import { isLogin, isLoading } from './store';
 	import { computePosition, autoUpdate, offset, shift, flip, arrow } from '@floating-ui/dom';
 	import { storePopup } from '@skeletonlabs/skeleton';
+	import { goto } from '$app/navigation';
+	import PayChoose from '$lib/PayChoose.svelte';
 
 	storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow });
 
@@ -18,10 +27,15 @@
 	}
 </script>
 
-<Drawer>
-	<h2 class="p-4">Navigation</h2>
-	<hr />
-	<Navigation />
+<Drawer bgDrawer="bg-white">
+	{#if $drawerStore.id === 'pay'}
+		<!-- 支付 -->
+		<PayChoose />
+	{:else}
+		<h2 class="p-4">Navigation</h2>
+		<hr />
+		<Navigation />
+	{/if}
 </Drawer>
 
 <!-- <AppShell slotSidebarLeft="bg-surface-500/5 w-0 lg:w-64 "> -->
@@ -65,6 +79,7 @@
 		</div>
 	{/if}
 	<Toast />
+	<Modal />
 	{#if $isLoading}
 		<div class="absolute inset-0 m-auto w-fit h-fit">
 			<ProgressRadial meter="stroke-primary-500" track="stroke-primary-500/30" />

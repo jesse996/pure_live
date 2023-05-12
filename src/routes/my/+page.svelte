@@ -2,7 +2,8 @@
 	import { page } from '$app/stores';
 	import NftItem from '$lib/NftItem.svelte';
 	import { Tab, TabGroup } from '@skeletonlabs/skeleton';
-	import { Settings, Sliders } from 'lucide-svelte';
+	import { Mails, Settings, Sliders } from 'lucide-svelte';
+	import { homeNftList, userList } from '../store';
 
 	let name = $page.url.searchParams.get('name');
 	let img = $page.url.searchParams.get('img');
@@ -10,7 +11,17 @@
 	let desc = $page.url.searchParams.get('desc');
 	// let tab = $page.url.searchParams.get('tab') || 1;
 
-	let tabSet: number = Number($page.url.searchParams.get('tab')) || 0;
+	let tab = Number($page.url.searchParams.get('tab')) || 0;
+	let tabSet = Number($page.url.searchParams.get('tab')) || 0;
+	$: {
+		// console.log(tab);
+		console.log(tabSet);
+	}
+
+	$: me = $userList.find((i) => i.id == 1)!;
+
+	$: myNftList1 = $homeNftList.filter((i) => i.ownerId === 1 && i.checkStatus == 1);
+	$: nftList2 = $homeNftList.filter((i) => i.ownerId === 1 && i.checkStatus != 1);
 </script>
 
 <div class="p-5">
@@ -29,6 +40,9 @@
 			</div>
 		</div>
 
+		<a href="/messages" class="mr-2 ">
+			<Mails color="red" />
+		</a>
 		<a href="userInfo" class="">
 			<Settings />
 		</a>
@@ -37,7 +51,7 @@
 
 	<div class="flex justify-center gap-5 items-center">
 		<a class="unstyled" href="/follow"><span class="font-bold ">0</span>朋友</a>
-		<a class="unstyled" href="/follow"><span class="font-bold ">2</span>关注</a>
+		<a class="unstyled" href="/follow"><span class="font-bold ">{me.following.length}</span>关注</a>
 		<a class="unstyled" href="/fan"><span class="font-bold">2</span>粉丝</a>
 		<a class="unstyled absolute right-5 variant-filled-primary rounded p-2" href="/createNft"
 			>铸造藏品</a
@@ -46,27 +60,36 @@
 	<hr class="my-4" />
 	<TabGroup>
 		<Tab bind:group={tabSet} name="tab1" value={0}>藏品</Tab>
-		<Tab bind:group={tabSet} name="tab2" value={1}>申请中藏品</Tab>
+		<Tab bind:group={tabSet} name="tab2" value={1}>未审核藏品</Tab>
 		<Tab bind:group={tabSet} name="tab3" value={2}>已卖出</Tab>
 		<Tab bind:group={tabSet} name="tab4" value={3}>已发布</Tab>
 	</TabGroup>
 	<div class="mt-2 grid grid-cols-2 gap-2">
 		{#if tabSet === 0}
-			<NftItem
-				src="https://static.ibox.art/file/oss/test/image/nft-goods/8f396502014f4ae8b875877d9ceff3d7.png?style=st6"
-				name="冰雪神兽-冰雪兔神"
-				number={4513}
-				all={5000}
-				price={499}
-			/>
-		{:else if tabSet === 1 && name}
-			<NftItem
-				src={'https://pica.zhimg.com/v2-62f541f83f1d54faa796b796bb828194_720w.jpg?source=172ae18b'}
-				{name}
-				number={1}
-				all={num}
-				price={null}
-			/>
+			<!-- 有用的藏品 -->
+			{#each myNftList1 as nftList (nftList.id)}
+				<NftItem
+					nftId={nftList.id}
+					src={nftList.img}
+					name={nftList.name}
+					number={nftList.number}
+					all={nftList.all}
+					price={nftList.price}
+				/>
+			{/each}
+		{:else if tabSet === 1}
+			<!-- 未审核藏品 -->
+			{#each nftList2 as data (data.id)}
+				<!-- {JSON.stringify(data)} -->
+				<NftItem
+					nftId={data.id}
+					src={data.img}
+					name={data.name}
+					number={data.number}
+					all={data.all}
+					price={data.price}
+				/>
+			{/each}
 		{/if}
 	</div>
 </div>

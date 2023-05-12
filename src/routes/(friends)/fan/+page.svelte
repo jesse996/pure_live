@@ -18,11 +18,18 @@
 				class="btn variant-filled-error w-24"
 				on:click={() => {
 					isFollow = true;
+
 					toastStore.trigger({ message: '回关成功', background: 'variant-filled-success' });
 				}}>回关</button
 			>
 		{:else}
-			<button class="btn variant-soft-surface w-24">互相关注</button>
+			<button
+				class="btn variant-soft-surface w-24"
+				on:click={() => {
+					isFollow = false;
+					toastStore.trigger({ message: '取消回关', background: 'variant-filled-error' });
+				}}>互相关注</button
+			>
 		{/if}
 	</li>
 	<li>

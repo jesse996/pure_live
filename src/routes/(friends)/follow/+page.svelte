@@ -1,25 +1,26 @@
 <script lang="ts">
 	import { tabSet } from '$lib/store';
+	import { toastStore } from '@skeletonlabs/skeleton';
+	import { userList, type UserInfo } from '../../store';
+	let me = $userList.find((i) => i.id == 1)!;
+	$: following = me.following.map((i) => {
+		return $userList.find((j) => j.id == i)!;
+	});
 </script>
 
 我的关注
 <ul class="list">
-	<li>
-		<img
-			src="https://static.ibox.art/file/oss/test/image/nft-goods/e5a52ecb4c8f4365af5945e730e08086.png"
-			class="rounded-full w-12 h-12"
-			alt="avatar"
-		/>
-		<span class="flex-auto">Skeleton</span>
-		<button class="btn variant-soft-surface w-24">已关注</button>
-	</li>
-	<li>
-		<img
-			src="https://static.ibox.art/file/oss/test/image/nft-goods/c6874e5214f740458e97eb1fd334004c.png"
-			class="rounded-full w-12 h-12"
-			alt="avatar"
-		/>
-		<span class="flex-auto">Skeleton</span>
-		<button class="btn variant-soft-surface w-24">互相关注</button>
-	</li>
+	{#each following as user (user.id)}
+		<li>
+			<img src={user.avatar} class="rounded-full w-12 h-12" alt="avatar" />
+			<span class="flex-auto">{user.name}</span>
+			<button
+				class="btn variant-soft-surface w-24"
+				on:click={() => {
+					me.following = me.following.filter((i) => i != user.id);
+					toastStore.trigger({ message: '取消关注成功', background: 'variant-filled-error' });
+				}}>已关注</button
+			>
+		</li>
+	{/each}
 </ul>

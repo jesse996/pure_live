@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { ChevronRight, Copy } from 'lucide-svelte';
+	import { isLogin } from '../store';
+	import { goto } from '$app/navigation';
 </script>
 
 <ul class="list">
@@ -34,9 +36,23 @@
 		<div>收款账户</div>
 		<div class="flex items-center"><ChevronRight /></div>
 	</li>
+	<li class="flex justify-between items-center">
+		<div>余额</div>
+		<div class="flex items-center"><ChevronRight /></div>
+	</li>
 
 	<li class="flex justify-between items-center">
 		<div>简介</div>
 		<div class="flex items-center"><ChevronRight /></div>
 	</li>
 </ul>
+
+<div class="mt-5 mx-auto flex justify-center">
+	<button
+		class="btn variant-filled-error mx-auto w-fit"
+		on:click={() => {
+			isLogin.set(false);
+			goto('/');
+		}}>退出登录</button
+	>
+</div>
