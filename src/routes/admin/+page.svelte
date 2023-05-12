@@ -40,7 +40,10 @@
 		valueAttr: { type: 'text', minlength: 3, maxlength: 10, required: true },
 		// Returns the updated response value
 		response: (r: string) => {
-			$messages = [...$messages, { id: $mId, messages: r, nftId: curNftId }];
+			$messages = [
+				{ id: $mId, messages: r, nftId: curNftId, isPass: false, hasRead: false },
+				...$messages
+			];
 			$mId += 1;
 		}
 	};
@@ -129,8 +132,19 @@
 								<button
 									class="btn variant-filled-primary"
 									on:click={() => {
+										curNftId = item.id;
 										item.checkStatus = 1;
 										$homeNftList = $homeNftList;
+										$messages = [
+											{
+												id: $mId,
+												messages: '审核通过',
+												nftId: curNftId,
+												isPass: true,
+												hasRead: false
+											},
+											...$messages
+										];
 									}}>通过</button
 								>
 								<button

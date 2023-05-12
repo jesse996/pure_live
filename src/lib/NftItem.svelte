@@ -43,9 +43,11 @@
 			<div class=" p-4 w-16 shadow-xl z-1000" data-popup="popupFeatured9">
 				<div>
 					<ul>
+						<li><a href={`/zz?nftId=${nftData.id}`}>转赠</a></li>
+						<hr />
 						<li><a href=""> 上架</a></li>
 						<hr />
-						<li><a href={`/zz?nftId=${nftData.id}`}>转赠</a></li>
+						<li><a href={`/`}>改价</a></li>
 					</ul>
 				</div>
 				<div class="arrow bg-surface-100-800-token" />

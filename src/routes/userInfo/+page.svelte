@@ -37,7 +37,7 @@
 		<div class="flex items-center"><ChevronRight /></div>
 	</li>
 	<li class="flex justify-between items-center">
-		<div>余额</div>
+		<a href="userInfo/balance"> <div class="text-black">余额</div></a>
 		<div class="flex items-center"><ChevronRight /></div>
 	</li>
 

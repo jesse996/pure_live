@@ -2,7 +2,7 @@
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 	import { ProgressRadial, drawerStore, toastStore } from '@skeletonlabs/skeleton';
-	import { homeNftList, isLogin } from '../routes/store';
+	import { homeNftList, isLogin, orderHistory, orderId } from '../routes/store';
 	let nftId = Number($page.url.searchParams.get('id'));
 	let nftData = $homeNftList.find((it) => it.id === nftId)!;
 	if (!nftData) {
@@ -30,6 +30,16 @@
 				showLoading = true;
 				nftData.ownerId = 1;
 				$homeNftList = $homeNftList;
+				$orderHistory = [
+					{
+						id: $orderId++,
+						nftId: nftId,
+						sellerId: nftData.ownerId,
+						createTime: new Date().toLocaleDateString(),
+						price: nftData.price
+					},
+					...$orderHistory
+				];
 				setTimeout(() => {
 					showLoading = false;
 					drawerStore.close();

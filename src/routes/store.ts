@@ -26,7 +26,7 @@ export const homeNftList = persisted<NftItem[]>('homeNftList', [
 		number: 413,
 		all: 500,
 		price: 999,
-		createTime: '2023-01-12',
+		createTime: '2023/01/12',
 		checkStatus: 1,
 		creatorId: 2,
 		ownerId: 2,
@@ -39,7 +39,7 @@ export const homeNftList = persisted<NftItem[]>('homeNftList', [
 		number: 241,
 		all: 600,
 		price: 1242,
-		createTime: '2023-01-11',
+		createTime: '2023/01/11',
 		checkStatus: 1,
 		creatorId: 2,
 		ownerId: 2,
@@ -52,7 +52,7 @@ export const homeNftList = persisted<NftItem[]>('homeNftList', [
 		number: 413,
 		all: 500,
 		price: 999,
-		createTime: '2023-01-10',
+		createTime: '2023/01/10',
 		checkStatus: 1,
 		creatorId: 2,
 		ownerId: 2,
@@ -65,7 +65,7 @@ export const homeNftList = persisted<NftItem[]>('homeNftList', [
 		number: 53,
 		all: 521,
 		price: 531,
-		createTime: '2023-01-09',
+		createTime: '2023/01/09',
 		checkStatus: 1,
 		creatorId: 2,
 		ownerId: 2,
@@ -78,7 +78,7 @@ export const homeNftList = persisted<NftItem[]>('homeNftList', [
 		number: 4513,
 		all: 5000,
 		price: 499,
-		createTime: '2023-01-09',
+		createTime: '2023/01/09',
 		checkStatus: 1,
 		creatorId: 2,
 		ownerId: 2,
@@ -91,7 +91,7 @@ export const homeNftList = persisted<NftItem[]>('homeNftList', [
 		number: 1156,
 		all: 6000,
 		price: 80,
-		createTime: '2023-01-07',
+		createTime: '2023/01/07',
 		checkStatus: 1,
 		creatorId: 2,
 		ownerId: 2,
@@ -104,7 +104,7 @@ export const homeNftList = persisted<NftItem[]>('homeNftList', [
 		name: '舞琴',
 		all: 1000,
 		price: 1299,
-		createTime: '2023-01-14',
+		createTime: '2023/01/14',
 		checkStatus: 1,
 		creatorId: 2,
 		ownerId: 1,
@@ -158,7 +158,30 @@ interface Message {
 	id: number;
 	messages: string;
 	nftId: number;
+	hasRead: boolean;
+	isPass: boolean;
 }
-export const messages = persisted<Message[]>('message', []);
+export const messages = persisted<Message[]>('message', [
+	// {
+	// 	id: 1,
+	// 	messages: '您的藏品已经审核通过',
+	// 	isPass: true,
+	// 	nftId: 1,
+	// 	hasRead: false
+	// }
+]);
 
 export const mId = persisted('mId', 1);
+
+export const balance = persisted('balance', 10000);
+
+export interface Order {
+	id: number;
+	nftId: number;
+	sellerId: number;
+	price: number;
+	createTime: string;
+}
+
+export const orderId = persisted('orderId', 1);
+export const orderHistory = persisted<Order[]>('orderHistory', []);

@@ -3,7 +3,7 @@
 	import NftItem from '$lib/NftItem.svelte';
 	import { Tab, TabGroup } from '@skeletonlabs/skeleton';
 	import { Mails, Settings, Sliders } from 'lucide-svelte';
-	import { homeNftList, userList } from '../store';
+	import { homeNftList, messages, userList } from '../store';
 
 	let name = $page.url.searchParams.get('name');
 	let img = $page.url.searchParams.get('img');
@@ -22,6 +22,8 @@
 
 	$: myNftList1 = $homeNftList.filter((i) => i.ownerId === 1 && i.checkStatus == 1);
 	$: nftList2 = $homeNftList.filter((i) => i.ownerId === 1 && i.checkStatus != 1);
+
+	$: unreadMsgCount = $messages.filter((i) => i.hasRead == false).length;
 </script>
 
 <div class="p-5">
@@ -40,11 +42,18 @@
 			</div>
 		</div>
 
-		<a href="/messages" class="mr-2 ">
-			<Mails color="red" />
+		<a href="/messages" class="mr-5 ">
+			<div class="relative inline-block">
+				{#if unreadMsgCount > 0}
+					<span class="badge-icon variant-filled-warning absolute -top-3 -right-3 z-10"
+						>{unreadMsgCount}</span
+					>
+				{/if}
+				<Mails />
+			</div>
 		</a>
 		<a href="userInfo" class="">
-			<Settings />
+			<Settings color="black" />
 		</a>
 	</div>
 	<hr class="my-3" />
