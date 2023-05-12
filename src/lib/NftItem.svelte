@@ -7,7 +7,7 @@
 </script>
 
 <div class="bg-surface-50 rounded-lg">
-	<a href="/nftDetail" class="unstyled">
+	<a href={`/nftDetail?src=${src}&name=${name}&price=${price}&num=${number}`} class="unstyled">
 		<img {src} alt="nft" class="w-full aspect-square " />
 		<div class="px-3 pb-2">
 			<div class="pt-2">{name}</div>

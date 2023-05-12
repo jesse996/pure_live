@@ -1,4 +1,5 @@
 <script lang="ts">
+	import NftItem from '$lib/NftItem.svelte';
 	import { Tab, TabGroup } from '@skeletonlabs/skeleton';
 	import { Settings, Sliders } from 'lucide-svelte';
 
@@ -42,4 +43,13 @@
 		<Tab bind:group={tabSet} name="tab3" value={2}>已卖出</Tab>
 		<Tab bind:group={tabSet} name="tab4" value={3}>已发布</Tab>
 	</TabGroup>
+	<div class="mt-2 grid grid-cols-2 gap-2">
+		<NftItem
+			src="https://static.ibox.art/file/oss/test/image/nft-goods/8f396502014f4ae8b875877d9ceff3d7.png?style=st6"
+			name="冰雪神兽-冰雪兔神"
+			number={4513}
+			all={5000}
+			price={499}
+		/>
+	</div>
 </div>

@@ -1,13 +1,22 @@
+<script lang="ts">
+	import { page } from '$app/stores';
+	let src = $page.url.searchParams.get('src');
+	let name = $page.url.searchParams.get('name');
+	let price = $page.url.searchParams.get('price');
+	let num = $page.url.searchParams.get('num');
+</script>
+
 <img
-	src="https://static.ibox.art/file/oss/test/image/nft-goods/167f08459056401d8206cfc80b4e799e.png?style=st6"
+	src={src ??
+		'https://static.ibox.art/file/oss/test/image/nft-goods/167f08459056401d8206cfc80b4e799e.png?style=st6'}
 	alt=""
 	class="w-full"
 />
 <div class="bg-surface-50 px-5 pt-4 pb-2">
 	<div class="text-xs">该作品拥有官方认证</div>
 	<div class="flex justify-between items-center mt-2">
-		<div class="text-2xl font-bold ">凌霄殿#413</div>
-		<div class="text-red-500 font-bold text-lg">￥999</div>
+		<div class="text-2xl font-bold ">{name ?? '凌霄殿'}# {num ?? 443}</div>
+		<div class="text-red-500 font-bold text-lg">￥${price ?? 999}</div>
 	</div>
 	<div class="text-gray-400 mt-3">评估价：￥900</div>
 </div>
@@ -28,7 +37,7 @@
 			class="w-10 h-10 rounded"
 		/>
 		<div>
-			<div>name <span class="text-slate-400 bg-blue-100 rounded-lg px-2 ">创作者</span></div>
+			<div>马大哈 <span class="text-slate-400 bg-blue-100 rounded-lg px-2 ">创作者</span></div>
 			<div class="text-slate-400">cfx:0xbe9b...a8d2</div>
 		</div>
 	</div>
@@ -40,7 +49,7 @@
 			class="w-10 h-10 rounded"
 		/>
 		<div>
-			<div>name <span class="text-slate-400 bg-blue-100 rounded-lg px-2 ">所有者</span></div>
+			<div>天一 <span class="text-slate-400 bg-blue-100 rounded-lg px-2 ">所有者</span></div>
 			<div class="text-slate-400">cfx:0x0c87...0a81</div>
 		</div>
 	</div>
