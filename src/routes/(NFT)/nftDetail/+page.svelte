@@ -49,7 +49,7 @@
 			class="w-10 h-10 rounded"
 		/>
 		<div>
-			<div>天一 <span class="text-slate-400 bg-blue-100 rounded-lg px-2 ">所有者</span></div>
+			<div>用户名 <span class="text-slate-400 bg-blue-100 rounded-lg px-2 ">阿牛</span></div>
 			<div class="text-slate-400">cfx:0x0c87...0a81</div>
 		</div>
 	</div>

@@ -2,9 +2,13 @@
 	import type { ActionData, Snapshot } from './$types';
 	import { Search, ChevronDown } from 'lucide-svelte';
 	import NftItem from '$lib/NftItem.svelte';
+	import { homeNftList, isLoading, sleep } from './store';
+	import { ListBox, ListBoxItem, popup } from '@skeletonlabs/skeleton';
+	import type { PopupSettings } from '@skeletonlabs/skeleton';
 
 	let comment = '';
 	let second = '';
+	let searchKey = '';
 
 	export const snapshot = {
 		capture: () => ({ comment, second }),
@@ -13,66 +17,103 @@
 			second = value.second;
 		}
 	} satisfies Snapshot;
+
+	let filterNftList = $homeNftList;
+
+	function handleSearch(event: KeyboardEvent & { currentTarget: EventTarget & HTMLInputElement }) {
+		if (event.key === 'Enter') {
+			$isLoading = true;
+			setTimeout(() => {
+				filterNftList = $homeNftList.filter((it) => it.name.includes(searchKey));
+				$isLoading = false;
+			}, 200);
+		}
+	}
+
+	async function handleSelect(type: string) {
+		isLoading.set(true);
+		await sleep(200);
+		isLoading.set(false);
+		switch (type) {
+			case 'priceUp':
+				filterNftList = filterNftList.sort((i, j) => i.price - j.price);
+				break;
+			case 'priceDown':
+				filterNftList = filterNftList.sort((i, j) => j.price - i.price);
+				break;
+			default:
+				filterNftList = filterNftList.sort((i, j) => (j.createTime > i.createTime ? 1 : -1));
+		}
+	}
+
+	//筛选
+	const popupFeatured: PopupSettings = {
+		// Represents the type of event that opens/closed the popup
+		event: 'click',
+		// Matches the data-popup value on your popup element
+		target: 'popupFeatured',
+		// Defines which side of your trigger the popup will appear
+		placement: 'bottom'
+	};
+
+	let selectValue = '';
 </script>
 
 <div class="px-2">
-	<div class="input-group grid-cols-[auto_1fr_auto]">
+	<div class="input-group grid-cols-[auto_1fr_auto] mt-2">
 		<div class="input-group-shim"><Search /></div>
-		<input type="search" class="input " placeholder="搜索数字藏品" />
+		<input
+			type="search"
+			class="input "
+			placeholder="搜索数字藏品"
+			on:keydown={handleSearch}
+			bind:value={searchKey}
+		/>
 	</div>
-	<div class="flex justify-end m-5">
-		<!-- <select name="filter" id="filter">
-			<option value="0">价格升序</option>
-			<option value="1">价格降序</option>
-		</select> 筛选 -->
-
-		<span> 筛选</span>
+	<div class="flex justify-end m-2">
+		<button use:popup={popupFeatured}> 筛选</button>
 		<ChevronDown />
+		<div class="card p-4 w-72 shadow-xl" data-popup="popupFeatured">
+			<ListBox>
+				<ListBoxItem
+					bind:group={selectValue}
+					name="medium"
+					value="default"
+					on:click={() => {
+						handleSelect('default');
+					}}>默认排序</ListBoxItem
+				>
+				<ListBoxItem
+					bind:group={selectValue}
+					name="medium"
+					value="priceUp"
+					on:click={() => {
+						handleSelect('priceUp');
+					}}>价格升序</ListBoxItem
+				>
+				<ListBoxItem
+					bind:group={selectValue}
+					name="medium"
+					value="priceDown"
+					on:click={() => {
+						handleSelect('priceDown');
+					}}>价格降序</ListBoxItem
+				>
+			</ListBox>
+			<div class="arrow bg-surface-100-800-token" />
+		</div>
 	</div>
 
 	<!-- 藏品 -->
 	<div class="grid grid-cols-2 gap-2">
-		<NftItem
-			src="https://static.ibox.art/file/oss/test/image/nft-goods/167f08459056401d8206cfc80b4e799e.png?style=st6"
-			name="凌霄殿"
-			number={413}
-			all={500}
-			price={999}
-		/>
-		<NftItem
-			src="https://static.ibox.art/file/oss/test/image/nft-goods/69d7a12d750b4070a9fb63925330b1f0.jpg?style=st6"
-			name="六合仙鹤"
-			number={241}
-			all={600}
-			price={1242}
-		/>
-		<NftItem
-			src="https://static.ibox.art/file/oss/test/image/nft-goods/34d0ca713b7044c7b301bc9ef9b6416e.png?style=st6"
-			name="冰雪神兽-冰雪天鹅"
-			number={413}
-			all={500}
-			price={999}
-		/>
-		<NftItem
-			src="https://static.ibox.art/file/oss/test/image/nft-goods/32c62138bb4b4255a55c70632fc23a99.png?style=st6"
-			name="CyberBull"
-			number={53}
-			all={521}
-			price={531}
-		/>
-		<NftItem
-			src="https://static.ibox.art/file/oss/test/image/nft-goods/8f396502014f4ae8b875877d9ceff3d7.png?style=st6"
-			name="冰雪神兽-冰雪兔神"
-			number={4513}
-			all={5000}
-			price={499}
-		/>
-		<NftItem
-			src="https://static.ibox.art/file/oss/test/image/nft-goods/deafb429825f43d7975c941cd28cee38.png?style=st6"
-			name="CyberRabbit"
-			number={1156}
-			all={6000}
-			price={80}
-		/>
+		{#each filterNftList as nft (nft.name)}
+			<NftItem
+				src={nft.img || ''}
+				name={nft.name}
+				number={nft.number}
+				all={nft.all}
+				price={nft.price}
+			/>
+		{/each}
 	</div>
 </div>

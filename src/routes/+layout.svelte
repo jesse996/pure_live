@@ -7,13 +7,15 @@
 	import { navigating } from '$app/stores';
 	import { AppBar, AppShell } from '@skeletonlabs/skeleton';
 	import Navigation from '$lib/Navigation.svelte';
-	import { isLogin } from './store';
+	import { isLogin, isLoading } from './store';
+	import { computePosition, autoUpdate, offset, shift, flip, arrow } from '@floating-ui/dom';
+	import { storePopup } from '@skeletonlabs/skeleton';
+
+	storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow });
 
 	function drawerOpen(): void {
 		drawerStore.open({});
 	}
-
-	$: classesSidebarLeft = $page.url.pathname === '/' ? 'w-0' : 'w-0 lg:w-64';
 </script>
 
 <Drawer>
@@ -63,5 +65,10 @@
 		</div>
 	{/if}
 	<Toast />
+	{#if $isLoading}
+		<div class="absolute inset-0 m-auto w-fit h-fit">
+			<ProgressRadial meter="stroke-primary-500" track="stroke-primary-500/30" />
+		</div>
+	{/if}
 	<slot />
 </AppShell>
