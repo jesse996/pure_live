@@ -1,9 +1,16 @@
 <script lang="ts">
+	import { page } from '$app/stores';
 	import NftItem from '$lib/NftItem.svelte';
 	import { Tab, TabGroup } from '@skeletonlabs/skeleton';
 	import { Settings, Sliders } from 'lucide-svelte';
 
-	let tabSet: number = 0;
+	let name = $page.url.searchParams.get('name');
+	let img = $page.url.searchParams.get('img');
+	let num = Number($page.url.searchParams.get('num'));
+	let desc = $page.url.searchParams.get('desc');
+	// let tab = $page.url.searchParams.get('tab') || 1;
+
+	let tabSet: number = Number($page.url.searchParams.get('tab')) || 0;
 </script>
 
 <div class="p-5">
@@ -44,12 +51,22 @@
 		<Tab bind:group={tabSet} name="tab4" value={3}>已发布</Tab>
 	</TabGroup>
 	<div class="mt-2 grid grid-cols-2 gap-2">
-		<NftItem
-			src="https://static.ibox.art/file/oss/test/image/nft-goods/8f396502014f4ae8b875877d9ceff3d7.png?style=st6"
-			name="冰雪神兽-冰雪兔神"
-			number={4513}
-			all={5000}
-			price={499}
-		/>
+		{#if tabSet === 0}
+			<NftItem
+				src="https://static.ibox.art/file/oss/test/image/nft-goods/8f396502014f4ae8b875877d9ceff3d7.png?style=st6"
+				name="冰雪神兽-冰雪兔神"
+				number={4513}
+				all={5000}
+				price={499}
+			/>
+		{:else if tabSet === 1 && name}
+			<NftItem
+				src={'https://pica.zhimg.com/v2-62f541f83f1d54faa796b796bb828194_720w.jpg?source=172ae18b'}
+				{name}
+				number={1}
+				all={num}
+				price={null}
+			/>
+		{/if}
 	</div>
 </div>
