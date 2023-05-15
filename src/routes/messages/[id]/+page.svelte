@@ -31,6 +31,6 @@
 
 	<hr class="py-2" />
 	<h3>数字藏品详情：</h3>
-	<p><span class="font-bold text-lg"> {nft.name}</span></p>
-	<img src={'/' + nft.img} alt="" />
+	<div class="text-center"><span class=" text-lg text-center mx-auto"> {nft.name}</span></div>
+	<img src={'/' + nft.img} alt="" class="h-60 mx-auto" />
 </div>
