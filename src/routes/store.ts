@@ -173,7 +173,7 @@ export const messages = persisted<Message[]>('message', [
 
 export const mId = persisted('mId', 1);
 
-export const balance = persisted('balance', 10000);
+export const balance = persisted('balance', 5234);
 
 export interface Order {
 	id: number;

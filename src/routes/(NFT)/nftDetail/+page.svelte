@@ -42,7 +42,7 @@
 	<div
 		class="flex justify-start items-center space-x-3"
 		on:click={() => {
-			goto('/userProfile?uid=2');
+			goto(`/userProfile?uid=${owner.id}`, { noScroll: false });
 		}}
 	>
 		<img src={owner.avatar} alt="" class="w-10 h-10 rounded" />
@@ -58,7 +58,7 @@
 	<div
 		class="flex justify-start items-center space-x-3"
 		on:click={() => {
-			goto('/userProfile?uid=3');
+			goto(`/userProfile?uid=${creator.id}`, { noScroll: false });
 		}}
 	>
 		<img src={creator.avatar} alt="" class="w-10 h-10 rounded" />
@@ -66,7 +66,13 @@
 			<div>
 				{creator.name} <span class="text-slate-400 bg-blue-100 rounded-lg px-2 ">创作者</span>
 			</div>
-			<div class="text-slate-400">cfx:0x0c87...0a81</div>
+			<div class="text-slate-400">
+				{#if ownerId === creatorId}
+					cfx:0xbe9b...a8d2
+				{:else}
+					cfx:0x0c87...0a81
+				{/if}
+			</div>
 		</div>
 	</div>
 </div>
