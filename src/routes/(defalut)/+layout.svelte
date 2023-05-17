@@ -2,7 +2,7 @@
 	import { page } from '$app/stores';
 	import '@skeletonlabs/skeleton/themes/theme-skeleton.css';
 	import '@skeletonlabs/skeleton/styles/all.css';
-	import '../app.postcss';
+	import '../../app.postcss';
 	import {
 		Drawer,
 		drawerStore,
@@ -14,7 +14,7 @@
 	import { navigating } from '$app/stores';
 	import { AppBar, AppShell } from '@skeletonlabs/skeleton';
 	import Navigation from '$lib/Navigation.svelte';
-	import { isLogin, isLoading } from './store';
+	import { isLogin, isLoading } from '../store';
 	import { computePosition, autoUpdate, offset, shift, flip, arrow } from '@floating-ui/dom';
 	import { storePopup } from '@skeletonlabs/skeleton';
 	import { goto } from '$app/navigation';

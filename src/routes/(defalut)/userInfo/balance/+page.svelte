@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { Eye } from 'lucide-svelte';
-	import { balance, isLoading } from '../../store';
+	import { balance, isLoading } from '../../../store';
 	let money = 0;
 </script>
 

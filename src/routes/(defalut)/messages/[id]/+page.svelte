@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { onMount } from 'svelte';
-	import { homeNftList, messages } from '../../store';
+	import { homeNftList, messages } from '../../../store';
 
 	let mid = Number($page.params.id)!;
 

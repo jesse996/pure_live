@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { drawerStore, type DrawerSettings, toastStore } from '@skeletonlabs/skeleton';
-	import { homeNftList, isLogin, orderHistory, sleep, userList } from '../../store';
+	import { homeNftList, isLogin, orderHistory, sleep, userList } from '../../../store';
 	import { goto } from '$app/navigation';
 	let nftId = Number($page.url.searchParams.get('id'));
 
@@ -23,10 +23,10 @@
 
 <img src={img} alt="" class="w-full" />
 <div class="bg-surface-50 px-5 pt-4 pb-2">
-	<div class="text-xs">该作品拥有官方认证</div>
+	<!-- <div class="text-xs">该作品拥有官方认证</div> -->
 	<div class="flex justify-between items-center mt-2">
 		<div class="text-2xl font-bold ">{name}# {number}</div>
-		<div class="text-red-500 font-bold text-lg">￥${price}</div>
+		<div class="text-red-500 font-bold text-lg">￥{price}</div>
 	</div>
 	<div class="text-gray-400 mt-3">评估价：￥{price + 50}</div>
 </div>

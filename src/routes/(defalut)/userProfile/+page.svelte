@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { Avatar, toastStore } from '@skeletonlabs/skeleton';
-	import { homeNftList, userList } from '../store';
+	import { homeNftList, userList } from '../../store';
 	import NftItem from '$lib/NftItem.svelte';
 	let uid = Number($page.url.searchParams.get('uid'));
 

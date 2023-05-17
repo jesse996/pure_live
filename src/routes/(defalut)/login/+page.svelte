@@ -2,7 +2,7 @@
 	import { enhance } from '$app/forms';
 	import { goto } from '$app/navigation';
 	import { RadioGroup, RadioItem, toastStore } from '@skeletonlabs/skeleton';
-	import { isLogin } from '../store';
+	import { isLogin } from '../../store';
 
 	let alignment: string = 'code';
 </script>

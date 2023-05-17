@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { messages } from '../store';
+	import { messages } from '../../store';
 </script>
 
 <h2 class="px-4 mt-4">消息列表:</h2>

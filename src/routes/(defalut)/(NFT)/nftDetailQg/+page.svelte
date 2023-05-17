@@ -4,7 +4,7 @@
 	class="w-full"
 />
 <div class="bg-surface-50 px-5 pt-4 pb-2">
-	<div class="text-xs">该作品拥有官方认证</div>
+	<!-- <div class="text-xs">该作品拥有官方认证</div> -->
 	<div class="flex justify-between items-center mt-2">
 		<div class="text-2xl font-bold ">凌霄殿#413</div>
 		<div class="text-red-500 font-bold text-lg">￥999</div>
@@ -21,7 +21,7 @@
 	</div>
 </div>
 <div>
-	<button class="btn variant-filled-surface absolute bottom-0 inset-x-5"
+	<button class="btn variant-filled-surface absolute bottom-0 inset-x-5 mb-2"
 		>3月10日17:00 开始抢购
 	</button>
 </div>

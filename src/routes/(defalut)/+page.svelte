@@ -2,7 +2,7 @@
 	import type { ActionData, Snapshot } from './$types';
 	import { Search, ChevronDown } from 'lucide-svelte';
 	import NftItem from '$lib/NftItem.svelte';
-	import { homeNftList, isLoading, sleep } from './store';
+	import { homeNftList, isLoading, sleep } from '../store';
 	import { ListBox, ListBoxItem, popup } from '@skeletonlabs/skeleton';
 	import type { PopupSettings } from '@skeletonlabs/skeleton';
 
@@ -73,7 +73,7 @@
 		/>
 	</div>
 	<div class="flex justify-end m-2">
-		<button use:popup={popupFeatured}> 筛选</button>
+		<button use:popup={popupFeatured}> 排序</button>
 		<ChevronDown />
 		<div class="card p-4 w-72 shadow-xl z-100" data-popup="popupFeatured">
 			<ListBox>
