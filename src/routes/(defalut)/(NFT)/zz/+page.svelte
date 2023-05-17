@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { toastStore } from '@skeletonlabs/skeleton';
-	import { homeNftList, userList } from '../../store';
+	import { homeNftList, userList } from '../../../store';
 	import { goto } from '$app/navigation';
 
 	let nftId = Number($page.url.searchParams.get('nftId'));

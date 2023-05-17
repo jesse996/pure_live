@@ -118,6 +118,13 @@ export interface UserInfo {
 	chianAddress: string;
 	avatar: string;
 	following: number[];
+	phone?: string;
+	profile?: string;
+	role?: string;
+	pubKey?: string;
+	priKey?: string;
+	lastLoginTime?: string;
+	createTime?: string;
 }
 
 //未审核藏品
@@ -126,9 +133,16 @@ export const userList = persisted<UserInfo[]>('userList', [
 		id: 1,
 		name: 'jesse',
 		chianAddress: '0x1234567890',
+		phone: '1234567890',
 		avatar:
 			'https://static.ibox.art/file/oss/test/image/portrait/bfa8ba3852e9408ebab82341ead7c74e.jpg',
-		following: [3]
+		following: [3],
+		profile: '哈哈哈',
+		role: 'admin',
+		pubKey: '0x1234567890',
+		priKey: '0x1234567890',
+		lastLoginTime: '2023/05/13',
+		createTime: '2023/01/01'
 	},
 	{
 		id: 2,
@@ -136,7 +150,14 @@ export const userList = persisted<UserInfo[]>('userList', [
 		chianAddress: '0x145578194012',
 		avatar:
 			'https://static.ibox.art/file/oss/test/image/nft-goods/9fb9a8293a3941a7861f856638dade4d.png',
-		following: [3]
+		following: [3],
+		profile: '哈哈哈',
+		phone: '1234567890',
+		role: 'admin',
+		pubKey: '0x1234567890',
+		priKey: '0x7389123712',
+		lastLoginTime: '2023/04/01',
+		createTime: '2023/01/01'
 	},
 	{
 		id: 3,
@@ -144,7 +165,14 @@ export const userList = persisted<UserInfo[]>('userList', [
 		chianAddress: '0x151982813',
 		avatar:
 			'https://static.ibox.art/file/oss/test/image/portrait/3842ff4f575e44a0bd42db5a798ddd99.png?style=st',
-		following: []
+		following: [],
+		profile: '哈哈哈',
+		phone: '1234567890',
+		role: 'admin',
+		pubKey: '0x1241a241231',
+		priKey: '0x56345242341',
+		lastLoginTime: '2023/04/02',
+		createTime: '2023/01/01'
 	}
 ]);
 

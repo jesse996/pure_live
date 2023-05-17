@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { ChevronRight, Copy } from 'lucide-svelte';
-	import { isLogin } from '../store';
+	import { isLogin } from '../../store';
 	import { goto } from '$app/navigation';
 </script>
 

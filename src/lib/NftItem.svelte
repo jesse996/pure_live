@@ -45,7 +45,7 @@
 					<ul>
 						<li><a href={`/zz?nftId=${nftData.id}`}>转赠</a></li>
 						<hr />
-						<li><a href=""> 上架</a></li>
+						<li><a href="/"> 上架</a></li>
 						<hr />
 						<li><a href={`/`}>改价</a></li>
 					</ul>

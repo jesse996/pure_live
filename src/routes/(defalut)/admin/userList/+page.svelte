@@ -6,9 +6,8 @@
 		type PopupSettings
 	} from '@skeletonlabs/skeleton';
 	import { ChevronDown, ChevronUp } from 'lucide-svelte';
-	import { homeNftList, mId, messages } from '../../store';
+	import { homeNftList, mId, messages, userList } from '../../../store';
 	import { popup } from '@skeletonlabs/skeleton';
-	$: needCheck = $homeNftList.filter((item) => item.checkStatus == 0);
 
 	const popupFeatured: PopupSettings = {
 		// Represents the type of event that opens/closed the popup
@@ -18,14 +17,6 @@
 		// Defines which side of your trigger the popup will appear
 		placement: 'bottom'
 	};
-	// const popupFeatured1: PopupSettings = {
-	// 	// Represents the type of event that opens/closed the popup
-	// 	event: 'click',
-	// 	// Matches the data-popup value on your popup element
-	// 	target: 'popupFeatured12',
-	// 	// Defines which side of your trigger the popup will appear
-	// 	placement: 'bottom'
-	// };
 
 	let curImg = '';
 	let curNftId = 0;
@@ -52,26 +43,26 @@
 <AppShell slotSidebarLeft="bg-gray-900 w-60 text-white">
 	<svelte:fragment slot="sidebarLeft">
 		<ul class="flex flex-col space-y-2  py-4 text-lg">
-			<li class="pl-4 flex justify-between items-center py-3">
+			<li class="pl-4 flex justify-between items-center py-3 bg-blue-600">
 				<span> 用户管理</span>
-				<ChevronUp class="mr-4" />
+				<!-- <ChevronUp class="mr-4" /> -->
 			</li>
 			<li class="pl-4 flex justify-between items-center py-3">
 				<span> 数字藏品管理</span>
 				<ChevronDown class="mr-4" />
 			</li>
-			<div class="bg-gray-800">
+			<!-- <div class="bg-gray-800">
 				<ul class=" flex flex-col  text-lg">
 					<li class="pl-8 flex justify-between items-center py-3">
 						<span> 列表管理</span>
 						<ChevronUp class="mr-4" />
 					</li>
-					<li class="pl-8 flex justify-between items-center bg-blue-600 py-3">
+					<li class="pl-8 flex justify-between items-center  py-3">
 						<span> 铸造审核</span>
-						<!-- <ChevronDown class="mr-4" /> -->
+						<ChevronDown class="mr-4" />
 					</li>
 				</ul>
-			</div>
+			</div> -->
 		</ul>
 	</svelte:fragment>
 
@@ -81,82 +72,49 @@
 			<thead>
 				<tr>
 					<th>ID</th>
-					<th>藏品名称</th>
-					<th>图片</th>
-					<th>相似图片</th>
-					<th>描述</th>
-					<th>创作者用户名</th>
-					<th>申请时间</th>
+					<th>用户名</th>
+					<th>头像</th>
+					<th>手机号</th>
+					<th>简介</th>
+					<th>角色</th>
+					<th>钱包地址</th>
+					<th>私钥</th>
+					<th>上次登录时间</th>
+					<th>创建时间</th>
 					<th>操作</th>
 				</tr>
 			</thead>
 			<tbody>
-				{#each needCheck as item (item.id)}
+				{#each $userList as item (item.id)}
 					<tr>
-						<td class="!align-middle">1</td>
+						<td class="!align-middle">{item.id}</td>
 						<td class="text-center !align-middle">{item.name}</td>
 						<td class="text-center !align-middle">
 							<!-- svelte-ignore a11y-click-events-have-key-events -->
 							<img
-								src={item.img}
+								src={item.avatar}
 								alt=""
-								class="w-24 h-24 object-cover"
+								class="w-12 h-12 object-cover rounded-full"
 								use:popup={popupFeatured}
 								on:click={() => {
-									curImg = item.img;
+									curImg = item.avatar;
 								}}
 							/>
 						</td>
 						<td class="!align-middle">
-							{#if item.img.includes('rotate.jpg')}
-								<!-- svelte-ignore a11y-click-events-have-key-events -->
-								<img
-									src="./lf.jpg"
-									alt=""
-									class="w-24 h-24 object-cover"
-									use:popup={popupFeatured}
-									on:click={() => {
-										curImg = 'http://localhost:5173/./lf.jpg';
-									}}
-								/>
-							{:else}
-								<div>无</div>
-							{/if}
+							{item.phone}
 						</td>
-						<td class="!align-middle">{item.desc}</td>
-						<td class="!align-middle">jesse</td>
-						<td class="!align-middle">{new Date().toLocaleDateString()}</td>
+						<td class="!align-middle">{item.profile}</td>
+						<td class="!align-middle">{item.role}</td>
+						<td class="!align-middle">{item.pubKey}</td>
+						<td class="!align-middle">{item.priKey}</td>
+						<td class="!align-middle">{item.lastLoginTime}</td>
+						<td class="!align-middle">{item.createTime}</td>
 
 						<td class="!align-middle">
 							<div>
-								<button
-									class="btn variant-filled-primary"
-									on:click={() => {
-										curNftId = item.id;
-										item.checkStatus = 1;
-										$homeNftList = $homeNftList;
-										$messages = [
-											{
-												id: $mId,
-												messages: '审核通过',
-												nftId: curNftId,
-												isPass: true,
-												hasRead: false
-											},
-											...$messages
-										];
-									}}>通过</button
-								>
-								<button
-									class="btn variant-filled-error"
-									on:click={() => {
-										curNftId = item.id;
-										modalStore.trigger(modal);
-
-										item.checkStatus = 2;
-										$homeNftList = $homeNftList;
-									}}>拒绝</button
-								>
+								<button class="btn variant-filled-primary" on:click={() => {}}>编辑</button>
+								<button class="btn variant-filled-error" on:click={() => {}}>删除</button>
 							</div>
 						</td>
 					</tr>

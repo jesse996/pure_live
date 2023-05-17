@@ -2,7 +2,7 @@
 	import { goto } from '$app/navigation';
 	import { FileButton, FileDropzone, toastStore } from '@skeletonlabs/skeleton';
 	import { ImagePlus } from 'lucide-svelte';
-	import { homeNftList, nftId } from '../../store';
+	import { homeNftList, nftId } from '../../../store';
 	let files: FileList;
 	let img: string;
 	let name: string;

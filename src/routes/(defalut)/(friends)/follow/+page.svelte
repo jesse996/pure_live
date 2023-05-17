@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { tabSet } from '$lib/store';
 	import { toastStore } from '@skeletonlabs/skeleton';
-	import { userList, type UserInfo } from '../../store';
+	import { userList, type UserInfo } from '../../../store';
 	import { goto } from '$app/navigation';
 	let me = $userList.find((i) => i.id == 1)!;
 	$: following = me.following.map((i) => {

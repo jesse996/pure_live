@@ -3,7 +3,7 @@
 	import NftItem from '$lib/NftItem.svelte';
 	import { Tab, TabGroup } from '@skeletonlabs/skeleton';
 	import { Mails, Settings, Sliders } from 'lucide-svelte';
-	import { homeNftList, messages, userList } from '../store';
+	import { homeNftList, messages, userList } from '../../store';
 
 	let name = $page.url.searchParams.get('name');
 	let img = $page.url.searchParams.get('img');
