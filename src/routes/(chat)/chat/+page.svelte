@@ -1,7 +1,17 @@
-<script>
+<script lang="ts">
 	import { ArrowLeft } from 'lucide-svelte';
+	import ky from 'ky';
+	import { onMount } from 'svelte';
+
+	let json: any;
+	onMount(async () => {
+		let res = await ky.get('https://jsonplaceholder.typicode.com/todos/1').json();
+		console.log(res);
+		json = res;
+	});
 </script>
 
+{JSON.stringify(json)}
 <div class="bg-gray-100 h-screen">
 	<div class="bg-white flex justify-center items-center mt-5 pb-2">
 		<!-- <div class=" left-7"> -->
