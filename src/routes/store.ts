@@ -12,6 +12,7 @@ interface NftItem {
 	checkStatus: number | undefined | null; // 0 审核中，1通过，2不通过
 	creatorId: number;
 	ownerId: number;
+	name1: string;
 }
 
 export const isLogin = persisted('isLogin', false);
