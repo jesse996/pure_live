@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { tabSet } from '$lib/store';
-	import { toastStore } from '@skeletonlabs/skeleton';
 	import { userList, type UserInfo } from '../../../store';
 	import { goto } from '$app/navigation';
 	let me = $userList.find((i) => i.id == 1)!;
@@ -25,7 +24,6 @@
 				class="btn variant-soft-surface w-24"
 				on:click={() => {
 					me.following = me.following.filter((i) => i != user.id);
-					toastStore.trigger({ message: '取消关注成功', background: 'variant-filled-error' });
 				}}>已关注</button
 			>
 		</li>

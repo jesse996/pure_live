@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import { toastStore } from '@skeletonlabs/skeleton';
 	import { homeNftList, userList } from '../../../store';
 	import { goto } from '$app/navigation';
 
@@ -25,12 +24,10 @@
 		on:click={() => {
 			let to = $userList.find((i) => i.name === toUser);
 			if (!to) {
-				toastStore.trigger({ message: '用户不存在', background: 'variant-filled-error' });
 				return;
 			}
 			nftData.ownerId = to.id;
 			$homeNftList = $homeNftList;
-			toastStore.trigger({ message: '转赠成功', background: 'variant-filled-primary' });
 			goto('/my');
 		}}>确定</button
 	>

@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { FileButton, FileDropzone, toastStore } from '@skeletonlabs/skeleton';
 	import { ImagePlus } from 'lucide-svelte';
 	import { homeNftList, nftId } from '../../../store';
 	let files: FileList;
@@ -36,14 +35,7 @@
 			</svelte:fragment>
 			<svelte:fragment slot="message">上传藏品</svelte:fragment>
 		</FileDropzone> -->
-		{#if !files || files.length === 0}
-			<FileDropzone name="files" bind:files>
-				<svelte:fragment slot="lead">
-					<ImagePlus class="mx-auto" />
-				</svelte:fragment>
-				<svelte:fragment slot="message">上传藏品</svelte:fragment>
-			</FileDropzone>
-		{:else}
+		{#if !files || files.length === 0}{:else}
 			<img src={img} alt="img" />
 		{/if}
 
@@ -64,14 +56,12 @@
 			<input class="textarea py-10 px-3" bind:value={desc} />
 		</label>
 		<button
-			class="btn variant-filled-secondary w-full mt-5 "
+			class="btn variant-filled-secondary w-full mt-5"
 			on:click={() => {
 				if (!(img && name && desc && num && price)) {
-					toastStore.trigger({ message: '请填写完整信息', background: 'variant-filled-error' });
 					return;
 				}
 				btnDisabled = true;
-				toastStore.trigger({ message: '铸造藏品提交成功', background: 'variant-filled-success' });
 				$nftId += 1;
 				console.log('nftId:', $nftId);
 				$homeNftList = [

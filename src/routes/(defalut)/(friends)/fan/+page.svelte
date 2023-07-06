@@ -1,6 +1,4 @@
 <script>
-	import { toastStore } from '@skeletonlabs/skeleton';
-
 	let isFollow = false;
 </script>
 
@@ -27,7 +25,6 @@
 				class="btn variant-soft-surface w-24"
 				on:click={() => {
 					isFollow = false;
-					toastStore.trigger({ message: '取消回关', background: 'variant-filled-error' });
 				}}>互相关注</button
 			>
 		{/if}

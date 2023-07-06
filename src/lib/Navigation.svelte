@@ -1,8 +1,5 @@
 <script lang="ts">
-	import { drawerStore } from '@skeletonlabs/skeleton';
-	function drawerClose(): void {
-		drawerStore.close();
-	}
+	function drawerClose(): void {}
 </script>
 
 <nav class="list-nav p-4">

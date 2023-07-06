@@ -1,7 +1,5 @@
 <script lang="ts">
 	import { homeNftList } from '../routes/store';
-	import { popup } from '@skeletonlabs/skeleton';
-	import type { PopupSettings } from '@skeletonlabs/skeleton';
 
 	export let src: string;
 	export let name: string;
@@ -13,7 +11,7 @@
 	$: nftData = $homeNftList.find((it) => it.id === nftId)!;
 	// const { img, name, number, all, price } = nftData;
 
-	const popupFeatured3: PopupSettings = {
+	const popupFeatured3 = {
 		event: 'click',
 		target: 'popupFeatured9',
 		placement: 'bottom'
@@ -25,7 +23,7 @@
 		href={`/nftDetail?id=${nftId}&src=${src}&name=${name}&price=${price}&num=${number}`}
 		class="unstyled"
 	>
-		<img {src} alt="nft" class="w-full aspect-square object-cover " />
+		<img {src} alt="nft" class="w-full aspect-square object-cover" />
 	</a>
 	<div class="px-3 pb-2">
 		<div class="pt-2">{name}</div>
@@ -57,7 +55,6 @@
 					on:click={() => {
 						console.log('...');
 					}}
-					use:popup={popupFeatured3}
 				>
 					...
 				</button>
