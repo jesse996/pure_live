@@ -3,8 +3,6 @@
 	import { Search, ChevronDown } from 'lucide-svelte';
 	import NftItem from '$lib/NftItem.svelte';
 	import { homeNftList, isLoading, sleep } from '../store';
-	import { ListBox, ListBoxItem, popup } from '@skeletonlabs/skeleton';
-	import type { PopupSettings } from '@skeletonlabs/skeleton';
 
 	let comment = '';
 	let second = '';
@@ -48,16 +46,6 @@
 		}
 	}
 
-	//筛选
-	const popupFeatured: PopupSettings = {
-		// Represents the type of event that opens/closed the popup
-		event: 'click',
-		// Matches the data-popup value on your popup element
-		target: 'popupFeatured',
-		// Defines which side of your trigger the popup will appear
-		placement: 'top'
-	};
-
 	let selectValue = '';
 </script>
 
@@ -66,42 +54,16 @@
 		<div class="input-group-shim"><Search /></div>
 		<input
 			type="search"
-			class="input "
+			class="input"
 			placeholder="搜索数字藏品"
 			on:keydown={handleSearch}
 			bind:value={searchKey}
 		/>
 	</div>
 	<div class="flex justify-end m-2">
-		<button use:popup={popupFeatured}> 排序</button>
+		<button> 排序</button>
 		<ChevronDown />
 		<div class="card p-4 w-72 shadow-xl z-100" data-popup="popupFeatured">
-			<ListBox>
-				<ListBoxItem
-					bind:group={selectValue}
-					name="medium"
-					value="default"
-					on:click={() => {
-						handleSelect('default');
-					}}>默认排序</ListBoxItem
-				>
-				<ListBoxItem
-					bind:group={selectValue}
-					name="medium"
-					value="priceUp"
-					on:click={() => {
-						handleSelect('priceUp');
-					}}>价格升序</ListBoxItem
-				>
-				<ListBoxItem
-					bind:group={selectValue}
-					name="medium"
-					value="priceDown"
-					on:click={() => {
-						handleSelect('priceDown');
-					}}>价格降序</ListBoxItem
-				>
-			</ListBox>
 			<div class="arrow bg-surface-100-800-token" />
 		</div>
 	</div>

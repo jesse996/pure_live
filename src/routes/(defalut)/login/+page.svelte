@@ -1,24 +1,17 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { goto } from '$app/navigation';
-	import { RadioGroup, RadioItem, toastStore } from '@skeletonlabs/skeleton';
 	import { isLogin } from '../../store';
 
 	let alignment: string = 'code';
 </script>
 
 <h3 class="text-center mt-2 mb-10">登录</h3>
-<div class="text-center">
-	<RadioGroup>
-		<RadioItem bind:group={alignment} name="alignment-horizontal" value="code">验证码登录</RadioItem
-		>
-		<RadioItem bind:group={alignment} name="alignment-vertical" value="psw">密码登录</RadioItem>
-	</RadioGroup>
-</div>
+<div class="text-center" />
 
 <div class="px-5">
 	<label for="phone">手机号</label>
-	<input type="text" name="phone" id="phone" class="input " />
+	<input type="text" name="phone" id="phone" class="input" />
 	{#if alignment === 'code'}
 		<label for="code">验证码</label>
 		<div class="flex gap-2">
@@ -32,12 +25,11 @@
 	<button
 		class="btn variant-filled-primary w-full my-5"
 		on:click={() => {
-			toastStore.trigger({ message: '登录成功', background: 'variant-filled-success' });
 			setTimeout(() => {
 				isLogin.set(true);
 				goto('/my');
 			}, 500);
 		}}>登录</button
 	>
-	<a class="unstyled " href="/forgetPsw">忘记密码</a>
+	<a class="unstyled" href="/forgetPsw">忘记密码</a>
 </div>

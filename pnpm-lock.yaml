@@ -28,9 +28,6 @@ devDependencies:
   '@neoconfetti/svelte':
     specifier: ^1.0.0
     version: 1.0.0
-  '@skeletonlabs/skeleton':
-    specifier: ^1.9.0
-    version: 1.9.0(svelte@4.0.4)
   '@sveltejs/adapter-auto':
     specifier: ^2.1.0
     version: 2.1.0(@sveltejs/kit@1.22.0)
@@ -68,7 +65,7 @@ devDependencies:
     specifier: ^2.32.2
     version: 2.32.2(eslint@8.44.0)(svelte@4.0.4)
   postcss:
-    specifier: ^8.4.25
+    specifier: ^8.4.24
     version: 8.4.25
   postcss-load-config:
     specifier: ^4.0.1
@@ -717,15 +714,6 @@ packages:
       estree-walker: 2.0.2
       picomatch: 2.3.1
       rollup: 3.26.0
-    dev: true
-
-  /@skeletonlabs/skeleton@1.9.0(svelte@4.0.4):
-    resolution: {integrity: sha512-8dPp2l4d7p07FD4PXejY4p4my8SpurHwGPw2SCMvKPVde49js13BTvZ26dWo7pfPuPozrXsOzEF2mZxpSv2W+A==}
-    peerDependencies:
-      svelte: ^3.56.0 || ^4.0.0
-    dependencies:
-      esm-env: 1.0.0
-      svelte: 4.0.4
     dev: true
 
   /@sveltejs/adapter-auto@2.1.0(@sveltejs/kit@1.22.0):
