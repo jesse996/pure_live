@@ -9,6 +9,7 @@
 	export let done;
 </script>
 
+<slot />
 <ul class="todos">
 	{#each $store.filter((todo) => todo.done === done) as todo (todo.id)}
 		<li class:done in:receive={{ key: todo.id }} out:send={{ key: todo.id }}>

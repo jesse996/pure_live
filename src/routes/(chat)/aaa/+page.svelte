@@ -1,6 +1,7 @@
 <script>
 	import { createTodoStore } from './todos.js';
 	import TodoList from './TodoList.svelte';
+	import Test from './Test.svelte';
 
 	const todos = createTodoStore([
 		{ done: false, description: 'write some docs' },
@@ -23,7 +24,13 @@
 		}}
 	/>
 
-	<div class="todo">
+	<Test let:qq={row}
+		>parent
+		{row}
+		<div slot="footer" let:cc={c1}>footer {c1}</div>
+	</Test>
+</div>
+<!-- <div class="todo">
 		<h2>todo</h2>
 		<TodoList store={todos} done={false} />
 	</div>
@@ -32,8 +39,8 @@
 		<h2>done</h2>
 		<TodoList store={todos} done={true} />
 	</div>
-</div>
-
+</div> -->
+<!--
 <style>
 	.board {
 		display: grid;
@@ -54,4 +61,4 @@
 		font-size: 2em;
 		font-weight: 200;
 	}
-</style>
+</style> -->
