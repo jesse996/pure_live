@@ -1,9 +1,7 @@
 <script lang="ts">
 	import { ArrowLeft } from 'lucide-svelte';
-	export let data;
 </script>
 
-{JSON.stringify(data)}
 <div class="bg-gray-100 h-screen">
 	<div class="bg-white flex justify-center items-center mt-5 pb-2">
 		<!-- <div class=" left-7"> -->
