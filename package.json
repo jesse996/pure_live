@@ -7,9 +7,8 @@
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
-		"lint": "prettier --plugin-search-dir . --check . && eslint .",
-		"format": "prettier --plugin-search-dir . --write .",
-		"fix": "bunx @biomejs/biome check --apply ./src"
+		"lint": "bunx @biomejs/biome lint ./src",
+		"lint:fix": "bunx @biomejs/biome check --apply ./src"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.4.1",
@@ -25,9 +24,6 @@
 		"@typescript-eslint/eslint-plugin": "^6.13.2",
 		"@typescript-eslint/parser": "^6.13.2",
 		"autoprefixer": "^10.4.16",
-		"eslint": "^8.55.0",
-		"eslint-config-prettier": "^9.1.0",
-		"eslint-plugin-svelte": "^2.35.1",
 		"postcss": "^8.4.32",
 		"postcss-load-config": "^5.0.2",
 		"prettier": "^3.1.1",
