@@ -1,6 +1,5 @@
 <script>
   import { createTodoStore } from './todos.js'
-  import TodoList from './TodoList.svelte'
   import Test from './Test.svelte'
 
   const todos = createTodoStore([
