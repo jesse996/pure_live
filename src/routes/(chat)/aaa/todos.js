@@ -1,4 +1,4 @@
-import { writable } from 'svelte/store';
+import { writable } from "svelte/store";
 
 export function createTodoStore(initial) {
 	let uid = 1;
@@ -7,7 +7,7 @@ export function createTodoStore(initial) {
 		return {
 			id: uid++,
 			done,
-			description
+			description,
 		};
 	});
 
@@ -15,23 +15,23 @@ export function createTodoStore(initial) {
 
 	return {
 		subscribe,
-		add: description => {
+		add: (description) => {
 			const todo = {
 				id: uid++,
 				done: false,
-				description
+				description,
 			};
 
-			update($todos => [...$todos, todo])
+			update(($todos) => [...$todos, todo]);
 		},
-		remove: todo => {
-			update($todos => $todos.filter((t) => t !== todo));
+		remove: (todo) => {
+			update(($todos) => $todos.filter((t) => t !== todo));
 		},
 		mark: (todo, done) => {
-			update($todos => [
+			update(($todos) => [
 				...$todos.filter((t) => t !== todo),
-				{ ...todo, done }
+				{ ...todo, done },
 			]);
-		}
+		},
 	};
 }
