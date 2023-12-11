@@ -1,34 +1,33 @@
 <script>
-	import { createTodoStore } from './todos.js';
-	import TodoList from './TodoList.svelte';
-	import Test from './Test.svelte';
+  import { createTodoStore } from './todos.js'
+  import TodoList from './TodoList.svelte'
+  import Test from './Test.svelte'
 
-	const todos = createTodoStore([
-		{ done: false, description: 'write some docs' },
-		{ done: false, description: 'start writing blog post' },
-		{ done: true, description: 'buy some milk' },
-		{ done: false, description: 'mow the lawn' },
-		{ done: false, description: 'feed the turtle' },
-		{ done: false, description: 'fix some bugs' }
-	]);
+  const todos = createTodoStore([
+    { done: false, description: 'write some docs' },
+    { done: false, description: 'start writing blog post' },
+    { done: true, description: 'buy some milk' },
+    { done: false, description: 'mow the lawn' },
+    { done: false, description: 'feed the turtle' },
+    { done: false, description: 'fix some bugs' },
+  ])
 </script>
 
 <div class="board">
-	<input
-		placeholder="what needs to be done?"
-		on:keydown={(e) => {
-			if (e.key === 'Enter') {
-				todos.add(e.currentTarget.value);
-				e.currentTarget.value = '';
-			}
-		}}
-	/>
+  <input
+    placeholder="what needs to be done?"
+    on:keydown={(e) => {
+      if (e.key === 'Enter') {
+        todos.add(e.currentTarget.value)
+        e.currentTarget.value = ''
+      }
+    }}
+  />
 
-	<Test let:qq={row}
-		>parent
-		{row}
-		<div slot="footer" let:cc={c1}>footer {c1}</div>
-	</Test>
+  <Test let:qq={row}
+    >parent dddsdd{row}
+    <div slot="footer" let:cc={c1}>footer {c1}</div>
+  </Test>
 </div>
 <!-- <div class="todo">
 		<h2>todo</h2>
