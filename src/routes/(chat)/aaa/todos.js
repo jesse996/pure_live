@@ -2,7 +2,7 @@ import { writable } from "svelte/store";
 
 export function createTodoStore(initial) {
 	let uid = 1;
-
+	console.info("🚀 ~ file:todos method:createTodoStore line:5 -----", uid)
 	const todos = initial.map(({ done, description }) => {
 		return {
 			id: uid++,
