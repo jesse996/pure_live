@@ -7,11 +7,14 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useRouteError,
 } from "@remix-run/react";
 import { ReactElement } from "react";
 
 import { HeaderSimple } from "~/components/HeaderSimple/HeaderSimple";
 import { ColorSchemeScript, Container, MantineProvider } from "@mantine/core";
+import { NothingFoundBackground } from "~/components/NotFound/NothingFoundBackground";
+import { err } from "@remix-run/dev/dist/result";
 
 export default function App() {
   return (
@@ -45,3 +48,14 @@ function Layout({ children }: { children: ReactElement }) {
     </Container>
   );
 }
+
+// export function ErrorBoundary() {
+//   const error = useRouteError();
+//   // When NODE_ENV=production:
+//   // error.message = "Unexpected Server Error"
+//   // error.stack = undefined
+//   console.info("🚀 ~ file:root method:ErrorBoundary line:56 -----", error);
+//   if (error.status === 404) {
+//     return <div>404</div>;
+//   }
+// }
