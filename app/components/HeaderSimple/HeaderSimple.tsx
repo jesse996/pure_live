@@ -1,4 +1,4 @@
-import { Burger, Container, Group } from "@mantine/core";
+import { Burger, Group } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import classes from "./HeaderSimple.module.css";
 import { Link, useLocation } from "@remix-run/react";

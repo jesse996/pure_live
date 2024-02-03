@@ -15,10 +15,14 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
       )
     )[0].count
   );
-  console.info("🚀 ~ file:c method:loader line:14 -----", count);
   const limit = 40;
   const list = await client.request(
-    readItems("article", { fields: ["id", "title"], page: currPage, limit })
+    readItems("article", {
+      fields: ["id", "title"],
+      page: currPage,
+      limit,
+      sort: ["-id"],
+    })
   );
   return { totalPage: ((count / limit) | 0) + 1, currPage, list };
 };
