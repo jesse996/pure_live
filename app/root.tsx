@@ -12,9 +12,23 @@ import {
 import { ReactElement } from "react";
 
 import { HeaderSimple } from "~/components/HeaderSimple/HeaderSimple";
-import { ColorSchemeScript, Container, MantineProvider } from "@mantine/core";
+import {
+  AppShell,
+  Burger,
+  ColorSchemeScript,
+  Container,
+  createTheme,
+  MantineProvider,
+} from "@mantine/core";
 import { NothingFoundBackground } from "~/components/NotFound/NothingFoundBackground";
 import { err } from "@remix-run/dev/dist/result";
+import { useDisclosure, useHeadroom } from "@mantine/hooks";
+
+const theme = createTheme({
+  fontFamily: "Open Sans, sans-serif",
+  autoContrast: true,
+  // primaryColor: "cyan",
+});
 
 export default function App() {
   return (
@@ -25,10 +39,10 @@ export default function App() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
         <Links />
-        <ColorSchemeScript />
+        <ColorSchemeScript defaultColorScheme={"light"} />
       </head>
       <body>
-        <MantineProvider>
+        <MantineProvider theme={theme} defaultColorScheme={"light"}>
           <Layout>
             <Outlet />
           </Layout>
@@ -41,11 +55,28 @@ export default function App() {
 }
 
 function Layout({ children }: { children: ReactElement }) {
+  const [opened, { toggle }] = useDisclosure();
+  const pinned = useHeadroom({ fixedAt: 120 });
+
   return (
-    <Container size="lg">
-      <HeaderSimple />
-      {children}
-    </Container>
+    <AppShell
+      // className={"lg:w-2/3 mx-auto"}
+      header={{ height: 60 }}
+      // navbar={{
+      //   width: 300,
+      //   breakpoint: "sm",
+      //   collapsed: { mobile: !opened },
+      // }}
+      padding="md"
+    >
+      <AppShell.Header>
+        <HeaderSimple />
+      </AppShell.Header>
+
+      {/*<AppShell.Navbar p="md">Navbar</AppShell.Navbar>*/}
+
+      <AppShell.Main>{children}</AppShell.Main>
+    </AppShell>
   );
 }
 

@@ -1,4 +1,4 @@
-import { Burger, Group } from "@mantine/core";
+import { Burger, Container, Group } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import classes from "./HeaderSimple.module.css";
 import { Link, useLocation } from "@remix-run/react";
@@ -18,6 +18,7 @@ export function HeaderSimple() {
       key={link.label}
       to={link.link}
       className={classes.link}
+      // className={"rounded-md leading-none px-2 py-2 text-sm"}
       data-active={active === link.link || undefined}
     >
       {link.label}
@@ -25,8 +26,8 @@ export function HeaderSimple() {
   ));
 
   return (
-    <header className={classes.header}>
-      <div className={classes.inner}>
+    <header className={"px-5 h-full"}>
+      <div className={"flex justify-between items-center  h-full"}>
         <Link to={"/"}>
           <div>logo</div>
         </Link>

@@ -1,12 +1,14 @@
-@layer tailwind {
-    @tailwind base;
-}
+/*@layer tailwind {*/
+/*    @tailwind base;*/
+/*}*/
 
-/*@tailwind base;*/
+@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 * {
+    box-sizing: border-box;
+    position: relative;
     min-width: 0;
 }
 
