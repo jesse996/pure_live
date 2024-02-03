@@ -5,7 +5,7 @@ import { Link, useLocation } from "@remix-run/react";
 
 const links = [
   { link: "/", label: "Home" },
-  { link: "/pricing", label: "Pricing" },
+  // { link: "/pricing", label: "Pricing" },
 ];
 
 export function HeaderSimple() {
@@ -29,7 +29,7 @@ export function HeaderSimple() {
     <header className={"px-5 h-full"}>
       <div className={"flex justify-between items-center  h-full"}>
         <Link to={"/"}>
-          <div>logo</div>
+          <div>娱乐娱乐</div>
         </Link>
         <Group gap={5} visibleFrom="xs">
           {items}

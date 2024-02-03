@@ -1,8 +1,8 @@
-/*@layer tailwind {*/
-/*    @tailwind base;*/
-/*}*/
+@layer tailwind {
+    @tailwind base;
+}
 
-@tailwind base;
+/*@tailwind base;*/
 @tailwind components;
 @tailwind utilities;
 
@@ -14,4 +14,9 @@
 
 body{
     min-height: 100dvh;
+}
+
+img{
+    text-align: center;
+    margin: 0 auto;
 }

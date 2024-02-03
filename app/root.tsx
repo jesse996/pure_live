@@ -7,21 +7,17 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
-  useRouteError,
 } from "@remix-run/react";
 import { ReactElement } from "react";
 
 import { HeaderSimple } from "~/components/HeaderSimple/HeaderSimple";
 import {
   AppShell,
-  Burger,
   ColorSchemeScript,
   Container,
   createTheme,
   MantineProvider,
 } from "@mantine/core";
-import { NothingFoundBackground } from "~/components/NotFound/NothingFoundBackground";
-import { err } from "@remix-run/dev/dist/result";
 import { useDisclosure, useHeadroom } from "@mantine/hooks";
 
 const theme = createTheme({
@@ -75,7 +71,9 @@ function Layout({ children }: { children: ReactElement }) {
 
       {/*<AppShell.Navbar p="md">Navbar</AppShell.Navbar>*/}
 
-      <AppShell.Main>{children}</AppShell.Main>
+      <AppShell.Main>
+        <Container size={"xl"}>{children}</Container>
+      </AppShell.Main>
     </AppShell>
   );
 }
