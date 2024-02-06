@@ -1,6 +1,5 @@
 import { LoaderFunctionArgs } from "@remix-run/cloudflare";
-import { client, supabaseClient } from "~/utils";
-import { readItem } from "@directus/sdk";
+import { supabaseClient } from "~/utils";
 import { useLoaderData } from "@remix-run/react";
 import { TypographyStylesProvider } from "@mantine/core";
 import Markdown from "react-markdown";

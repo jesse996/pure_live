@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   DndContext,
   closestCenter,
@@ -37,7 +37,7 @@ export function DndKitDemo() {
     </DndContext>
   );
 
-  function handleDragEnd(event) {
+  function handleDragEnd(event: any) {
     const { active, over } = event;
 
     if (active.id !== over.id) {
