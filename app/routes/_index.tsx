@@ -7,7 +7,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   const currPage = Number(new URL(request.url).searchParams.get("page") ?? 1);
   const limit = 40;
   const start = (currPage - 1) * limit;
-  const end = start + limit;
+  const end = start + limit - 1;
   const {
     count,
     data: list,
