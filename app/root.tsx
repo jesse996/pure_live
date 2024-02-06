@@ -32,6 +32,7 @@ export default function App() {
       <head>
         <title>新新闻</title>
         <meta charSet="utf-8" />
+        <meta name="referrer" content="never" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
         <Links />
