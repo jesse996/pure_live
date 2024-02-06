@@ -9,7 +9,8 @@
     "dev": "remix vite:dev",
     "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
     "start": "wrangler pages dev ./build/client",
-    "typecheck": "tsc"
+    "typecheck": "tsc",
+    "update-types": "supabase gen types typescript --project-id \"swheebjgiptrehnendqq\" > app/types/supabase.ts"
   },
   "dependencies": {
     "@directus/sdk": "^14.0.0",
@@ -22,6 +23,7 @@
     "@remix-run/cloudflare": "^2.6.0",
     "@remix-run/cloudflare-pages": "^2.6.0",
     "@remix-run/react": "^2.6.0",
+    "@supabase/supabase-js": "^2.39.3",
     "clsx": "^2.1.0",
     "isbot": "^4.1.0",
     "miniflare": "^3.20231030.4",
