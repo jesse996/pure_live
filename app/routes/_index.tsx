@@ -27,7 +27,7 @@ export default function Index() {
   const navigate = useNavigate();
   return (
     <>
-      <SimpleGrid cols={4}>
+      <SimpleGrid cols={{ xs: 1, sm: 2, md: 4 }}>
         {list.map((i) => (
           <Link to={`/article/${i.id}`} key={i.id}>
             <Card
