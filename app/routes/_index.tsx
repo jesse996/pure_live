@@ -1,7 +1,12 @@
 import { Card, Pagination, SimpleGrid, Text } from "@mantine/core";
 import { LoaderFunctionArgs } from "@remix-run/cloudflare";
 import { supabaseClient } from "~/utils";
-import { Link, useLoaderData, useNavigate } from "@remix-run/react";
+import {
+  ClientLoaderFunctionArgs,
+  Link,
+  useLoaderData,
+  useNavigate,
+} from "@remix-run/react";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const currPage = Number(new URL(request.url).searchParams.get("page") ?? 1);
@@ -21,6 +26,20 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
   return { totalPage: ((count! / limit) | 0) + 1, currPage, list };
 };
+
+let cache: any;
+export const clientLoader = async ({
+  serverLoader,
+  request,
+}: ClientLoaderFunctionArgs) => {
+  const searchParams = new URL(request.url).searchParams;
+  const pg = Number(searchParams.get("page") ?? 1);
+  if (cache && cache.currPage === pg) return cache;
+  const data = await serverLoader();
+  cache = data;
+  return data;
+};
+clientLoader.hydrate = true;
 
 export default function Index() {
   const { totalPage, currPage, list } = useLoaderData<typeof loader>();
