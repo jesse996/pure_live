@@ -1,4 +1,5 @@
 import "@mantine/core/styles.css";
+import "@mantine/nprogress/styles.css";
 import "./root.css";
 
 import {
@@ -7,8 +8,9 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useNavigation,
 } from "@remix-run/react";
-import { ReactElement } from "react";
+import { ReactElement, useEffect } from "react";
 
 import { HeaderSimple } from "~/components/HeaderSimple/HeaderSimple";
 import {
@@ -19,6 +21,7 @@ import {
   MantineProvider,
 } from "@mantine/core";
 import { useDisclosure, useHeadroom } from "@mantine/hooks";
+import { NavigationProgress, nprogress } from "@mantine/nprogress";
 
 const theme = createTheme({
   fontFamily: "Open Sans, sans-serif",
@@ -40,6 +43,7 @@ export default function App() {
       </head>
       <body>
         <MantineProvider theme={theme} defaultColorScheme={"light"}>
+          <NavigationProgress />
           <Layout>
             <Outlet />
           </Layout>
@@ -54,6 +58,15 @@ export default function App() {
 function Layout({ children }: { children: ReactElement }) {
   const [opened, { toggle }] = useDisclosure();
   const pinned = useHeadroom({ fixedAt: 120 });
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    if (navigation.state !== "idle") {
+      nprogress.start();
+    } else {
+      nprogress.complete();
+    }
+  }, [navigation]);
 
   return (
     <AppShell
