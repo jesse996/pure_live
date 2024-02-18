@@ -16,6 +16,7 @@ export type Database = {
           created_at: string | null
           id: number
           source: string | null
+          tag: string[] | null
           title: string
           updated_at: string | null
           url: string | null
@@ -24,8 +25,9 @@ export type Database = {
           content: string
           content_type?: string | null
           created_at?: string | null
-          id?: never
+          id?: number
           source?: string | null
+          tag?: string[] | null
           title: string
           updated_at?: string | null
           url?: string | null
@@ -34,11 +36,63 @@ export type Database = {
           content?: string
           content_type?: string | null
           created_at?: string | null
-          id?: never
+          id?: number
           source?: string | null
+          tag?: string[] | null
           title?: string
           updated_at?: string | null
           url?: string | null
+        }
+        Relationships: []
+      }
+      sys_book: {
+        Row: {
+          author: string | null
+          check_down_load: boolean | null
+          create_time: string | null
+          db_img: string | null
+          download_url: string | null
+          file_type: string | null
+          id: number
+          img: string | null
+          isbn: string | null
+          pub_date: string | null
+          rate: string | null
+          summary: string | null
+          tags: Json | null
+          title: string | null
+        }
+        Insert: {
+          author?: string | null
+          check_down_load?: boolean | null
+          create_time?: string | null
+          db_img?: string | null
+          download_url?: string | null
+          file_type?: string | null
+          id?: number
+          img?: string | null
+          isbn?: string | null
+          pub_date?: string | null
+          rate?: string | null
+          summary?: string | null
+          tags?: Json | null
+          title?: string | null
+        }
+        Update: {
+          author?: string | null
+          check_down_load?: boolean | null
+          create_time?: string | null
+          db_img?: string | null
+          download_url?: string | null
+          file_type?: string | null
+          id?: number
+          img?: string | null
+          isbn?: string | null
+          pub_date?: string | null
+          rate?: string | null
+          summary?: string | null
+          tags?: Json | null
+          title?: string | null
         }
         Relationships: []
       }

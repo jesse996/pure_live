@@ -9,19 +9,23 @@ import {
 } from "@remix-run/react";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
-  const currPage = Number(new URL(request.url).searchParams.get("page") ?? 1);
+  const searchParams = new URL(request.url).searchParams;
+  const currPage = Number(searchParams.get("page") ?? 1);
+  const tag = searchParams.get("tag") ?? "";
   const limit = 16;
   const start = (currPage - 1) * limit;
   const end = start + limit - 1;
-  const {
-    count,
-    data: list,
-    error,
-  } = await supabaseClient
+  let query = supabaseClient
     .from("sys_article")
     .select("id,title", { count: "estimated", head: false })
     .range(start, end)
     .order("id", { ascending: false });
+  console.info("tag", tag);
+  if (tag) {
+    query = query.containedBy("tag", [tag]);
+  }
+  const { count, data: list, error } = await query;
+
   if (error) throw error;
 
   return {
@@ -29,6 +33,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     currPage,
     list,
     host: new URL(request.url).host,
+    tag,
   };
 };
 
@@ -39,7 +44,8 @@ export const clientLoader = async ({
 }: ClientLoaderFunctionArgs) => {
   const searchParams = new URL(request.url).searchParams;
   const pg = Number(searchParams.get("page") ?? 1);
-  if (cache && cache.currPage === pg) return cache;
+  const tag = Number(searchParams.get("tag") ?? "");
+  if (cache && cache.currPage === pg && cache.tag === tag) return cache;
   const data = await serverLoader();
   cache = data;
   return data;

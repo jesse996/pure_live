@@ -25,6 +25,7 @@
     "@remix-run/cloudflare-pages": "^2.6.0",
     "@remix-run/react": "^2.6.0",
     "@supabase/supabase-js": "^2.39.6",
+    "@tabler/icons-react": "^2.47.0",
     "clsx": "^2.1.0",
     "isbot": "^4.4.0",
     "miniflare": "^3.20240129.2",

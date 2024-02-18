@@ -3,6 +3,7 @@ import "@mantine/nprogress/styles.css";
 import "./root.css";
 
 import {
+  Link,
   Links,
   Meta,
   Outlet,
@@ -15,19 +16,26 @@ import { ReactElement, useEffect } from "react";
 import { HeaderSimple } from "~/components/HeaderSimple/HeaderSimple";
 import {
   AppShell,
+  Burger,
   ColorSchemeScript,
   Container,
   createTheme,
+  Group,
   MantineProvider,
 } from "@mantine/core";
 import { useDisclosure, useHeadroom } from "@mantine/hooks";
 import { NavigationProgress, nprogress } from "@mantine/nprogress";
+import { NavbarSimple } from "~/components/NavbarSimple/NavbarSimple";
 
 const theme = createTheme({
   fontFamily: "Open Sans, sans-serif",
   autoContrast: true,
   // primaryColor: "cyan",
 });
+
+// export const loader = async () => {
+//   await supabaseClient.from("sys_article").select("source");
+// };
 
 export default function App() {
   return (
@@ -56,7 +64,8 @@ export default function App() {
 }
 
 function Layout({ children }: { children: ReactElement }) {
-  const [opened, { toggle }] = useDisclosure();
+  const [mobileOpened, { toggle: toggleMobile }] = useDisclosure();
+  const [desktopOpened, { toggle: toggleDesktop }] = useDisclosure(true);
   const pinned = useHeadroom({ fixedAt: 120 });
   const navigation = useNavigation();
 
@@ -70,20 +79,36 @@ function Layout({ children }: { children: ReactElement }) {
 
   return (
     <AppShell
-      // className={"lg:w-2/3 mx-auto"}
       header={{ height: 60 }}
-      // navbar={{
-      //   width: 300,
-      //   breakpoint: "sm",
-      //   collapsed: { mobile: !opened },
-      // }}
+      navbar={{
+        width: 300,
+        breakpoint: "sm",
+        collapsed: { mobile: !mobileOpened, desktop: !desktopOpened },
+      }}
       padding="md"
     >
       <AppShell.Header>
-        <HeaderSimple />
+        {/*<HeaderSimple />*/}
+        <Group h="100%" px="md">
+          <Burger
+            opened={mobileOpened}
+            onClick={toggleMobile}
+            hiddenFrom="sm"
+            size="sm"
+          />
+          <Burger
+            opened={desktopOpened}
+            onClick={toggleDesktop}
+            visibleFrom="sm"
+            size="sm"
+          />
+          <Link to={"/"}>娱乐娱乐</Link>
+        </Group>
       </AppShell.Header>
 
-      {/*<AppShell.Navbar p="md">Navbar</AppShell.Navbar>*/}
+      <AppShell.Navbar p="md">
+        <NavbarSimple />
+      </AppShell.Navbar>
 
       <AppShell.Main>
         <Container size={"xl"}>{children}</Container>
