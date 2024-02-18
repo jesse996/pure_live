@@ -1,4 +1,4 @@
-import { Card, Pagination, SimpleGrid, Text } from "@mantine/core";
+import { Card, Pagination, SimpleGrid, Text, Image } from "@mantine/core";
 import { LoaderFunctionArgs } from "@remix-run/cloudflare";
 import { supabaseClient } from "~/utils";
 import {
@@ -10,7 +10,7 @@ import {
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const currPage = Number(new URL(request.url).searchParams.get("page") ?? 1);
-  const limit = 40;
+  const limit = 16;
   const start = (currPage - 1) * limit;
   const end = start + limit - 1;
   const {
@@ -52,11 +52,18 @@ export default function Index() {
             <Card
               shadow="sm"
               padding="xl"
-              // h={40}
+              // h={200}
               // component="a"
               // href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
               // target="_blank"
             >
+              <Card.Section>
+                <Image
+                  src={`https://picsum.photos/seed/${i.title}/200/160`}
+                  h={160}
+                  alt={i.title}
+                />
+              </Card.Section>
               <Text truncate>{i.title}</Text>
             </Card>
           </Link>
