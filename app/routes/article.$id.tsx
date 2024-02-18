@@ -26,6 +26,12 @@ export default function ArticleDetail() {
           <article dangerouslySetInnerHTML={{ __html: data.content }} />
         )}
       </TypographyStylesProvider>
+
+      <img
+        src={`https://api.likepoems.com/counter/get/@$article.fml233.cn_${data.title}`}
+        alt="count"
+        className={"h-14 absolute mt-2"}
+      />
     </div>
   );
 }
