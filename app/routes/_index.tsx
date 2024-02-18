@@ -24,7 +24,12 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     .order("id", { ascending: false });
   if (error) throw error;
 
-  return { totalPage: ((count! / limit) | 0) + 1, currPage, list };
+  return {
+    totalPage: ((count! / limit) | 0) + 1,
+    currPage,
+    list,
+    host: new URL(request.url).host,
+  };
 };
 
 let cache: any;
@@ -42,10 +47,12 @@ export const clientLoader = async ({
 clientLoader.hydrate = true;
 
 export default function Index() {
-  const { totalPage, currPage, list } = useLoaderData<typeof loader>();
+  const { totalPage, currPage, list, host } = useLoaderData<typeof loader>();
   const navigate = useNavigate();
   return (
-    <>
+    <div
+    // style={{ backgroundImage: 'url("https://api.likepoems.com/img/pc/")' }}
+    >
       <SimpleGrid cols={{ xs: 1, sm: 2, md: 4 }}>
         {list.map((i) => (
           <Link to={`/article/${i.id}`} key={i.id}>
@@ -70,7 +77,7 @@ export default function Index() {
         ))}
       </SimpleGrid>
       <img
-        src={`https://api.likepoems.com/counter/get/@$article.fml233.cn`}
+        src={`https://api.likepoems.com/counter/get/@${host}`}
         alt="count"
         className={"h-14 absolute mt-2"}
       />
@@ -86,6 +93,6 @@ export default function Index() {
           }}
         />
       </div>
-    </>
+    </div>
   );
 }
