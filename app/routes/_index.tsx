@@ -83,7 +83,10 @@ export default function Index() {
         ))}
       </SimpleGrid>
       <img
-        src={`https://api.likepoems.com/counter/get/@${host}`}
+        src={`https://api.likepoems.com/counter/get/@${host.replaceAll(
+          ".",
+          ""
+        )}`}
         alt="count"
         className={"h-14 absolute mt-2"}
       />
