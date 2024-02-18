@@ -6,6 +6,7 @@ import {
   Link,
   useLoaderData,
   useNavigate,
+  useSearchParams,
 } from "@remix-run/react";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
@@ -56,6 +57,8 @@ clientLoader.hydrate = true;
 export default function Index() {
   const { totalPage, currPage, list, host } = useLoaderData<typeof loader>();
   const navigate = useNavigate();
+  const [searchParam, setSearchParam] = useSearchParams();
+  // console.info("sear", searchParam);
   return (
     <div
     // style={{ backgroundImage: 'url("https://api.likepoems.com/img/pc/")' }}
@@ -93,10 +96,8 @@ export default function Index() {
           total={totalPage}
           value={currPage}
           onChange={(newPage) => {
-            navigate({
-              pathname: ".",
-              search: "?page=" + newPage,
-            });
+            searchParam.set("page", newPage.toString());
+            setSearchParam(searchParam);
           }}
         />
       </div>
