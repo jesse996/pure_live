@@ -69,6 +69,11 @@ export default function Index() {
           </Link>
         ))}
       </SimpleGrid>
+      <img
+        src={`https://api.likepoems.com/counter/get/@$article.fml233.cn`}
+        alt="count"
+        className={"h-14 absolute mt-2"}
+      />
       <div className={"text-center flex justify-center mt-5"}>
         <Pagination
           total={totalPage}
