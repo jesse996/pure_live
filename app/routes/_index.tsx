@@ -20,19 +20,20 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     .select("id,title", { count: "estimated", head: false })
     .range(start, end)
     .order("id", { ascending: false });
-  console.info("tag", tag);
   if (tag) {
     query = query.containedBy("tag", [tag]);
   }
   const { count, data: list, error } = await query;
 
   if (error) throw error;
-
+  let host = new URL(request.url).host;
+  host = host.replaceAll(".", "");
+  host = host.replaceAll(":", "");
   return {
     totalPage: ((count! / limit) | 0) + 1,
     currPage,
     list,
-    host: new URL(request.url).host,
+    host,
     tag,
   };
 };
@@ -83,10 +84,7 @@ export default function Index() {
         ))}
       </SimpleGrid>
       <img
-        src={`https://api.likepoems.com/counter/get/@${host.replaceAll(
-          ".",
-          ""
-        )}`}
+        src={`https://api.likepoems.com/counter/get/@${host}`}
         alt="count"
         className={"h-14 absolute mt-2"}
       />
