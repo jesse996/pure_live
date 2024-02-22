@@ -3,6 +3,7 @@ import "@mantine/nprogress/styles.css";
 import "./root.css";
 
 import {
+  isRouteErrorResponse,
   Link,
   Links,
   Meta,
@@ -10,21 +11,19 @@ import {
   Scripts,
   ScrollRestoration,
   useNavigation,
+  useRouteError,
 } from "@remix-run/react";
 import { ReactElement, useEffect } from "react";
-
-import { HeaderSimple } from "~/components/HeaderSimple/HeaderSimple";
 import {
   AppShell,
   Burger,
-  ColorSchemeScript,
   Container,
   createTheme,
   Group,
   MantineProvider,
 } from "@mantine/core";
-import { useDisclosure, useHeadroom } from "@mantine/hooks";
-import { NavigationProgress, nprogress } from "@mantine/nprogress";
+import { useDisclosure } from "@mantine/hooks";
+import { nprogress } from "@mantine/nprogress";
 import { NavbarSimple } from "~/components/NavbarSimple/NavbarSimple";
 
 const theme = createTheme({
@@ -37,36 +36,34 @@ const theme = createTheme({
 //   await supabaseClient.from("sys_article").select("source");
 // };
 
-export default function App() {
+export function Layout({ children }: { children: ReactElement }) {
   return (
     <html lang="en">
       <head>
-        <title>新新闻</title>
         <meta charSet="utf-8" />
-        <meta name="referrer" content="never" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
         <Links />
-        <ColorSchemeScript defaultColorScheme={"light"} />
       </head>
       <body>
-        <MantineProvider theme={theme} defaultColorScheme={"light"}>
-          <NavigationProgress />
-          <Layout>
-            <Outlet />
-          </Layout>
-          <ScrollRestoration />
-          <Scripts />
+        <MantineProvider theme={theme}>
+          <MyLayout>{children}</MyLayout>
         </MantineProvider>
+        <Scripts />
+        <ScrollRestoration />
       </body>
     </html>
   );
 }
 
-function Layout({ children }: { children: ReactElement }) {
+export default function App() {
+  return <Outlet />;
+}
+
+function MyLayout({ children }: { children: ReactElement }) {
   const [mobileOpened, { toggle: toggleMobile }] = useDisclosure();
   const [desktopOpened, { toggle: toggleDesktop }] = useDisclosure(true);
-  const pinned = useHeadroom({ fixedAt: 120 });
+  // const pinned = useHeadroom({ fixedAt: 120 });
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -117,13 +114,24 @@ function Layout({ children }: { children: ReactElement }) {
   );
 }
 
-// export function ErrorBoundary() {
-//   const error = useRouteError();
-//   // When NODE_ENV=production:
-//   // error.message = "Unexpected Server Error"
-//   // error.stack = undefined
-//   console.info("🚀 ~ file:root method:ErrorBoundary line:56 -----", error);
-//   if (error.status === 404) {
-//     return <div>404</div>;
-//   }
-// }
+export function ErrorBoundary() {
+  const error: any = useRouteError();
+  console.info("🚀 ~ error", error);
+  if (isRouteErrorResponse(error)) {
+    return (
+      <>
+        <h1>
+          {error.status} {error.statusText}
+        </h1>
+        <p>{error.data}</p>
+      </>
+    );
+  }
+
+  return (
+    <>
+      <h1>Error!</h1>
+      <p>{error?.message ?? "Unknown error"}</p>
+    </>
+  );
+}
