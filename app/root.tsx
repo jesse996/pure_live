@@ -23,7 +23,7 @@ import {
   MantineProvider,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { nprogress } from "@mantine/nprogress";
+import { NavigationProgress, nprogress } from "@mantine/nprogress";
 import { NavbarSimple } from "~/components/NavbarSimple/NavbarSimple";
 
 const theme = createTheme({
@@ -43,6 +43,7 @@ export function Layout({ children }: { children: ReactElement }) {
       </head>
       <body>
         <MantineProvider theme={theme}>
+          <NavigationProgress />
           <MyLayout>{children}</MyLayout>
         </MantineProvider>
         <Scripts />
