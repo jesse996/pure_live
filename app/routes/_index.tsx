@@ -46,7 +46,7 @@ export const clientLoader = async ({
 }: ClientLoaderFunctionArgs) => {
   const searchParams = new URL(request.url).searchParams;
   const pg = Number(searchParams.get("page") ?? 1);
-  const tag = Number(searchParams.get("tag") ?? "");
+  const tag = searchParams.get("tag");
   if (cache && cache.currPage === pg && cache.tag === tag) return cache;
   const data = await serverLoader();
   cache = data;
