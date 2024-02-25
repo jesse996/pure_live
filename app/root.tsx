@@ -29,12 +29,8 @@ import { NavbarSimple } from "~/components/NavbarSimple/NavbarSimple";
 const theme = createTheme({
   fontFamily: "Open Sans, sans-serif",
   autoContrast: true,
-  // primaryColor: "cyan",
+  primaryColor: "cyan",
 });
-
-// export const loader = async () => {
-//   await supabaseClient.from("sys_article").select("source");
-// };
 
 export function Layout({ children }: { children: ReactElement }) {
   return (
@@ -67,7 +63,9 @@ function MyLayout({ children }: { children: ReactElement }) {
   const navigation = useNavigation();
 
   useEffect(() => {
+    console.info("navigation.state", navigation.state);
     if (navigation.state !== "idle") {
+      console.info("nprogress", nprogress);
       nprogress.start();
     } else {
       nprogress.complete();
