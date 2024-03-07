@@ -1,13 +1,16 @@
-import { Card, Pagination, SimpleGrid, Text, Image } from "@mantine/core";
-import { LoaderFunctionArgs } from "@remix-run/cloudflare";
+import { Card, Image, Pagination, SimpleGrid, Text } from "@mantine/core";
+import { LoaderFunctionArgs, MetaFunction } from "@remix-run/cloudflare";
 import { supabaseClient } from "~/utils";
 import {
   ClientLoaderFunctionArgs,
   Link,
   useLoaderData,
-  useNavigate,
   useSearchParams,
 } from "@remix-run/react";
+
+export const meta: MetaFunction<typeof loader> = ({}) => {
+  return [{ title: "新新闻" }];
+};
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const searchParams = new URL(request.url).searchParams;

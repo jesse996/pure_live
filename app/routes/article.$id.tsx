@@ -1,9 +1,12 @@
-import { LoaderFunctionArgs } from "@remix-run/cloudflare";
+import { LoaderFunctionArgs, MetaFunction } from "@remix-run/cloudflare";
 import { supabaseClient } from "~/utils";
 import { useLoaderData } from "@remix-run/react";
 import { TypographyStylesProvider } from "@mantine/core";
 import Markdown from "react-markdown";
 
+export const meta: MetaFunction<typeof loader> = ({ data }) => {
+  return [{ title: "新新闻 - " + data.title }];
+};
 export const loader = async ({ params }: LoaderFunctionArgs) => {
   // return await client.request(readItem("article", params.id!));
   const { data, error } = await supabaseClient
