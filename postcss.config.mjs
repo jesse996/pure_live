@@ -1,6 +1,5 @@
 export default {
   plugins: {
-    tailwindcss: {},
     "postcss-preset-mantine": {},
     "postcss-simple-vars": {
       variables: {

@@ -56,7 +56,6 @@ clientLoader.hydrate = true;
 
 export default function Index() {
   const { totalPage, currPage, list, host } = useLoaderData<typeof loader>();
-  const navigate = useNavigate();
   const [searchParam, setSearchParam] = useSearchParams();
   // console.info("sear", searchParam);
   return (
