@@ -4,7 +4,7 @@ import { Link } from "@remix-run/react";
 const data = [
   { link: "/?tag=技术", label: "技术", icon: IconBellRinging },
   { link: "/?tag=新闻", label: "新闻", icon: IconReceipt2 },
-  { link: "/douyu", label: "斗鱼", icon: IconReceipt2 },
+  { link: "/live/bilibili", label: "斗鱼", icon: IconReceipt2 },
 ];
 
 export function NavbarSimple() {
