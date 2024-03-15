@@ -5,7 +5,7 @@ import { TypographyStylesProvider } from "@mantine/core";
 import Markdown from "react-markdown";
 
 export const meta: MetaFunction<typeof loader> = ({ data }) => {
-  return [{ title: "新新闻 - " + data.title }];
+  return [{ title: "新新闻 - " + data?.title }];
 };
 export const loader = async ({ params }: LoaderFunctionArgs) => {
   // return await client.request(readItem("article", params.id!));

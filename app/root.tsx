@@ -28,8 +28,8 @@ import { NavbarSimple } from "~/components/NavbarSimple/NavbarSimple";
 
 const theme = createTheme({
   fontFamily: "Open Sans, sans-serif",
-  autoContrast: true,
-  primaryColor: "cyan",
+  // autoContrast: true,
+  // primaryColor: "cyan",
 });
 
 export function Layout({ children }: { children: ReactElement }) {
