@@ -12,7 +12,7 @@ export default defineConfig({
     tailwindcss(),
     remixCloudflareDevProxy(),
     remix({
-      ssr: false,
+      // ssr: false,
       ignoredRouteFiles: ["**/*"],
       routes: async (defineRoutes) => {
         return flatRoutes("routes", defineRoutes);
