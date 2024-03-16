@@ -65,9 +65,8 @@ function MyLayout({ children }: { children: ReactElement }) {
   const navigation = useNavigation();
 
   useEffect(() => {
-    console.info("navigation.state", navigation.state);
     if (navigation.state !== "idle") {
-      console.info("nprogress", nprogress);
+      // console.info("nprogress", nprogress);
       nprogress.start();
     } else {
       nprogress.complete();
@@ -78,7 +77,7 @@ function MyLayout({ children }: { children: ReactElement }) {
     <AppShell
       header={{ height: 60 }}
       navbar={{
-        width: 300,
+        width: 200,
         breakpoint: "sm",
         collapsed: { mobile: !mobileOpened, desktop: !desktopOpened },
       }}
@@ -108,7 +107,9 @@ function MyLayout({ children }: { children: ReactElement }) {
       </AppShell.Navbar>
 
       <AppShell.Main>
-        <Container size={"xl"}>{children}</Container>
+        {/*<Container size={"xl"}>*/}
+        {children}
+        {/*</Container>*/}
       </AppShell.Main>
     </AppShell>
   );

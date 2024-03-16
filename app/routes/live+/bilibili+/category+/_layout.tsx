@@ -1,26 +1,31 @@
-import { Card, Grid, Image, Tabs, Text } from "@mantine/core";
-import { Link, Outlet, useLoaderData, useSearchParams } from "@remix-run/react";
+import { Tabs } from "@mantine/core";
+import {
+  Outlet,
+  useLoaderData,
+  useNavigate,
+  useParams,
+} from "@remix-run/react";
 import { getCategory } from "~/apis/bilibili";
+import { json } from "@remix-run/cloudflare";
 
 export const loader = async () => {
   const categorys = await getCategory();
 
-  return { categorys };
+  return json({ categorys });
 };
 
 export default function BilibiliCatagory() {
   const { categorys } = useLoaderData<typeof loader>();
-  const [searchParam, setSearchParam] = useSearchParams();
-  const categoryId = searchParam.get("categoryId") || categorys[0].id;
-  const currentCategory = categorys.find((item) => item.id === categoryId);
-  console.log("currentCategory", currentCategory);
+  const params = useParams();
+  const categoryId = params.categoryId;
+  const navigate = useNavigate();
 
   return (
     <div>
       <Tabs
         value={categoryId}
         onChange={(value) => {
-          setSearchParam({ categoryId: value ?? "0" });
+          navigate(`${value}`);
         }}
       >
         <Tabs.List>
@@ -31,36 +36,6 @@ export default function BilibiliCatagory() {
           ))}
         </Tabs.List>
       </Tabs>
-
-      <div className={"grid grid-cols-3 md:grid-cols-5 gap-10 rounded-md mt-2"}>
-        {currentCategory?.children.map((item) => (
-          // <Link to={`area/${item.areaId}`} key={item.areaId}>
-          // <div key={item.areaId}>
-          <Card
-            shadow="lg"
-            radius={40}
-            key={item.areaId}
-            className={"rounded-xl overflow-hidden"}
-          >
-            <Card.Section>
-              <Image
-                src={item.areaPic}
-                alt={item.areaName}
-                referrerPolicy="no-referrer"
-                height={160}
-                // className="object-contain w-full	 h-20"
-              />
-            </Card.Section>
-            <Text
-              className={"h-20  flex justify-center items-center bg-gray-50"}
-            >
-              {item.areaName}
-            </Text>
-          </Card>
-          // </div>
-          // </Link>
-        ))}
-      </div>
       <Outlet />
     </div>
   );
