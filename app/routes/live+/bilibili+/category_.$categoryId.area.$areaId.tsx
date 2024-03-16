@@ -60,9 +60,9 @@ export default function AreaDetail() {
           "grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] justify-center"
         }
       >
-        {allRooms.map((item) => (
+        {allRooms.map((item, index) => (
           <div
-            key={item.roomId}
+            key={index}
             className=" m-4 shadow-lg rounded-lg overflow-hidden"
           >
             <div className="relative">
@@ -87,6 +87,7 @@ export default function AreaDetail() {
         ))}
       </div>
       {fetcher.state === "loading" && <Loader color="blue" />}
+      <p>到底啦~</p>
     </InfiniteScroller>
   );
 }
