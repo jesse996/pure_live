@@ -77,12 +77,14 @@ export async function getCategoryRooms(
   return { hasMore, items };
 }
 
-async function getPlayQualites(detail: LiveRoom): Promise<LivePlayQuality[]> {
+export async function getPlayQualites(
+  roomId: string
+): Promise<LivePlayQuality[]> {
   const qualities: LivePlayQuality[] = [];
   const result = await bilibiliClient
     .get("xlive/web-room/v2/index/getRoomPlayInfo", {
       searchParams: {
-        room_id: detail.roomId ?? "",
+        room_id: roomId,
         protocol: "0,1",
         format: "0,1,2",
         codec: "0,1",
@@ -107,15 +109,15 @@ async function getPlayQualites(detail: LiveRoom): Promise<LivePlayQuality[]> {
   return qualities;
 }
 
-async function getPlayUrls(
-  detail: LiveRoom,
+export async function getPlayUrls(
+  roomId: string,
   quality: LivePlayQuality
 ): Promise<string[]> {
   const urls: string[] = [];
   const result = await bilibiliClient
     .get("xlive/web-room/v2/index/getRoomPlayInfo", {
       searchParams: {
-        room_id: detail.roomId ?? "",
+        room_id: roomId,
         protocol: "0,1",
         format: "0,2",
         codec: "0",

@@ -1,6 +1,6 @@
 import { json, LoaderFunctionArgs } from "@remix-run/cloudflare";
 import { getCategoryRooms } from "~/apis/bilibili";
-import { useFetcher, useLoaderData } from "@remix-run/react";
+import { Link, useFetcher, useLoaderData } from "@remix-run/react";
 import { IconEye } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
 import { LiveRoom } from "~/types/bilibili";
@@ -61,8 +61,9 @@ export default function AreaDetail() {
         }
       >
         {allRooms.map((item, index) => (
-          <div
+          <Link
             key={index}
+            to={`room/${item.roomId}`}
             className=" m-4 shadow-lg rounded-lg overflow-hidden"
           >
             <div className="relative">
@@ -83,7 +84,7 @@ export default function AreaDetail() {
                 {item.watching}
               </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
       {fetcher.state === "loading" && <Loader color="blue" />}
