@@ -21,6 +21,6 @@ export default defineConfig({
     tsconfigPaths(),
   ],
   ssr: {
-    external: ["xgplayer/es/presets/live"],
+    external: ["xgplayer", "dplayer"],
   },
 });

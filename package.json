@@ -29,16 +29,17 @@
     "@supabase/supabase-js": "^2.39.8",
     "@tabler/icons-react": "^3.1.0",
     "@tailwindcss/vite": "4.0.0-alpha.9",
+    "artplayer": "^5.1.1",
     "clsx": "^2.1.0",
+    "hls.js": "^1.5.7",
     "isbot": "^5.1.1",
     "ky": "^1.2.2",
     "miniflare": "^3.20240304.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-markdown": "^9.0.1",
-    "tailwindcss": "4.0.0-alpha.9",
-    "xgplayer": "^3.0.14",
-    "xgplayer-hls": "^3.0.14"
+    "react-player": "^2.15.1",
+    "tailwindcss": "4.0.0-alpha.9"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20240314.0",

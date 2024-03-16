@@ -38,7 +38,7 @@ export function Layout({ children }: { children: ReactElement }) {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="referrer" content="no-referrer" />
+        {/*<meta name="referrer" content="https://live.bilibili.com" />*/}
 
         <Meta />
         <Links />
@@ -50,6 +50,17 @@ export function Layout({ children }: { children: ReactElement }) {
         </MantineProvider>
         <Scripts />
         <ScrollRestoration />
+        {/*        <script*/}
+        {/*          src="*/}
+        {/*https://cdn.jsdelivr.net/npm/dplayer@1.27.1/dist/DPlayer.min.js*/}
+        {/*"*/}
+        {/*        ></script>*/}
+        {/*<script*/}
+        {/*  type="module"*/}
+        {/*  dangerouslySetInnerHTML={{*/}
+        {/*    __html: ` import dplayer from https://cdn.jsdelivr.net/npm/dplayer@1.27.1/+esm`,*/}
+        {/*  }}*/}
+        {/*></script>*/}
       </body>
     </html>
   );
