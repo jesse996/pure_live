@@ -15,8 +15,8 @@ export const InfiniteScroller = (props: {
   const onScroll = () => {
     const documentHeight = document.documentElement.scrollHeight;
     const scrollDifference = Math.floor(window.innerHeight + window.scrollY);
-    const scrollEnded = documentHeight == scrollDifference;
-
+    const scrollEnded = documentHeight - scrollDifference < 50;
+    console.info("scrollEnded", scrollEnded);
     if (scrollEnded && !loading) {
       scrollListener.current();
     }

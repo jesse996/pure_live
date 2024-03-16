@@ -43,7 +43,7 @@ export default function AreaDetail() {
       const newItems = fetcher.data.rooms.items;
       setAllRooms((prevAssets) => [...prevAssets, ...newItems]);
     }
-  }, [fetcher.data, fetcher.state]);
+  }, [fetcher.data]);
 
   return (
     <InfiniteScroller
