@@ -20,7 +20,4 @@ export default defineConfig({
     }),
     tsconfigPaths(),
   ],
-  ssr: {
-    external: ["xgplayer", "dplayer"],
-  },
 });
