@@ -1,6 +1,3 @@
-# Dockerfile for remix + vite
-# Usage: docker build -t remix-vite .
-
 # base node image
 FROM node:20-bookworm-slim as base
 
@@ -13,8 +10,8 @@ FROM base as deps
 
 WORKDIR /app
 
-ADD package.json pnpm-lock.yaml ./
-RUN pnpm install --include=dev
+ADD package.json  ./
+RUN npm install --include=dev
 
 # Setup production node_modules
 FROM base as production-deps
@@ -22,8 +19,8 @@ FROM base as production-deps
 WORKDIR /app
 
 COPY --from=deps /app/node_modules /app/node_modules
-ADD package.json pnpm-lock.yaml ./
-RUN pnpm prune --omit=dev
+ADD package.json  ./
+RUN npm prune --omit=dev
 
 # Build the app
 FROM base as build
@@ -33,7 +30,7 @@ WORKDIR /app
 COPY --from=deps /app/node_modules /app/node_modules
 
 ADD . .
-RUN pnpm run build
+RUN npm run build
 
 # Finally, build the production image with minimal footprint
 FROM base
@@ -45,4 +42,4 @@ COPY --from=production-deps /app/node_modules /app/node_modules
 COPY --from=build /app/build /app/build
 COPY --from=build /app/package.json /app/package.json
 
-CMD [ "pnpm", "run", "start" ]
+CMD [ "npm", "run", "start" ]
