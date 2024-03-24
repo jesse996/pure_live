@@ -2,8 +2,8 @@
 FROM node:20-bookworm-slim as base
 
 # set for base and all layer that inherit from it
-ENV NODE_ENV production
-ENV PORT 8080
+# ENV NODE_ENV production
+# ENV PORT 8080
 
 # Install all node_modules, including dev dependencies
 FROM base as deps
