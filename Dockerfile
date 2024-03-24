@@ -13,7 +13,7 @@ FROM base as deps
 
 WORKDIR /app
 
-ADD package.json pnpm-lock.json ./
+ADD package.json pnpm-lock.yaml ./
 RUN pnpm install --include=dev
 
 # Setup production node_modules
@@ -22,7 +22,7 @@ FROM base as production-deps
 WORKDIR /app
 
 COPY --from=deps /app/node_modules /app/node_modules
-ADD package.json package-lock.json ./
+ADD package.json pnpm-lock.yaml ./
 RUN pnpm prune --omit=dev
 
 # Build the app
