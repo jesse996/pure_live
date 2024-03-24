@@ -13,8 +13,8 @@ FROM base as deps
 
 WORKDIR /app
 
-ADD package.json package-lock.json ./
-RUN npm install --include=dev
+ADD package.json pnpm-lock.json ./
+RUN pnpm install --include=dev
 
 # Setup production node_modules
 FROM base as production-deps
@@ -23,7 +23,7 @@ WORKDIR /app
 
 COPY --from=deps /app/node_modules /app/node_modules
 ADD package.json package-lock.json ./
-RUN npm prune --omit=dev
+RUN pnpm prune --omit=dev
 
 # Build the app
 FROM base as build
@@ -33,7 +33,7 @@ WORKDIR /app
 COPY --from=deps /app/node_modules /app/node_modules
 
 ADD . .
-RUN npm run build
+RUN pnpm run build
 
 # Finally, build the production image with minimal footprint
 FROM base
@@ -45,4 +45,4 @@ COPY --from=production-deps /app/node_modules /app/node_modules
 COPY --from=build /app/build /app/build
 COPY --from=build /app/package.json /app/package.json
 
-CMD [ "npm", "run", "start" ]
+CMD [ "pnpm", "run", "start" ]
