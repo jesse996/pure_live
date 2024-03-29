@@ -11,7 +11,6 @@ const data = [
 export function NavbarSimple() {
 	const links = data.map((item) => (
 		<Link className={"flex mb-2 p-2 rounded"} to={item.link} key={item.label}>
-			{/*<item.icon className={classes.linkIcon} stroke={1.5} />*/}
 			<span className={"text-lg"}>{item.label}</span>
 		</Link>
 	));

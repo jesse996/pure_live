@@ -60,71 +60,65 @@ async function getSubCategories(
 }
 
 export async function getCategoryRooms(
-	categoryId: string,
+	// category: LiveArea,
 	areaId: string,
 	page = 1,
 ): Promise<LiveCategoryResult> {
-	const result = await bilibiliClient
-		.get("xlive/web-interface/v1/second/getList", {
-			searchParams: {
-				platform: "web",
-				parent_area_id: categoryId ?? "",
-				area_id: areaId ?? "",
-				sort_type: "",
-				page: page,
-			},
-		})
-		.json();
+	const result = (await ky
+		.get(`https://www.douyu.com/gapi/rkc/directory/mixList/2_${areaId}/${page}`)
+		.json()) as any;
+	console.log("result", result);
 
-	const hasMore = result.data.has_more === 1;
 	const items: LiveRoom[] = [];
-	for (const item of result.data.list) {
+	for (const item of result.data.rl) {
+		if (item.type !== 1) {
+			continue;
+		}
 		const roomItem: LiveRoom = {
-			roomId: item.roomid.toString(),
-			title: item.title.toString(),
-			cover: `${item.cover}@400w.jpg`,
-			nick: item.uname.toString(),
-			avatar: item.face.toString(),
-			watching: item.online.toString(),
+			cover: item.rs16.toString(),
+			watching: item.ol.toString(),
+			roomId: item.rid.toString(),
+			title: item.rn.toString(),
+			nick: item.nn.toString(),
+			area: item.c2name.toString(),
 			liveStatus: LiveStatus.live,
-			area: item.area_name.toString(),
+			avatar: item.av.toString().isNotEmpty
+				? `https://apic.douyucdn.cn/upload/${item.av}_middle.jpg`
+				: "",
 			status: true,
-			platform: "live",
-			userId: item.uid.toString(),
+			platform: "douyu",
 		};
 		items.push(roomItem);
 	}
+	const hasMore = page < result.data.pgcnt;
 	return { hasMore, items };
 }
 
-export async function getPlayQualites(
-	roomId: string,
+export async function getPlayQualities(
+	detail: LiveRoom,
 ): Promise<LivePlayQuality[]> {
+	let data = detail.data;
+	data += "&cdn=&rate=-1&ver=Douyu_223061205&iar=1&ive=1&hevc=0&fa=0";
 	const qualities: LivePlayQuality[] = [];
-	const result = await bilibiliClient
-		.get("xlive/web-room/v2/index/getRoomPlayInfo", {
-			searchParams: {
-				room_id: roomId,
-				protocol: "0,1",
-				format: "0,1,2",
-				codec: "0,1",
-				platform: "web",
+
+	const result = (await ky
+		.post(`https://www.douyu.com/lapi/live/getH5Play/${detail.roomId}`, {
+			headers: {
+				"Content-Type": "application/x-www-form-urlencoded",
 			},
+			body: data,
 		})
-		.json();
+		.json()) as any;
 
-	const qualitiesMap: { [key: number]: string } = {};
-	for (const item of result.data.playurl_info.playurl.g_qn_desc) {
-		qualitiesMap[Number.parseInt(item.qn) || 0] = item.desc;
+	const cdns: string[] = [];
+	for (const item of result.data.cdnsWithName) {
+		cdns.push(item.cdn.toString());
 	}
-
-	for (const item of result.data.playurl_info.playurl.stream[0].format[0]
-		.codec[0].accept_qn) {
-		const qualityItem: LivePlayQuality = {
-			quality: qualitiesMap[item] || "未知清晰度",
-			data: item,
-		};
-		qualities.push(qualityItem);
+	for (const item of result.data.multirates) {
+		qualities.push({
+			quality: item.name.toString(),
+			data: { rate: item.rate, cdns: cdns },
+		});
 	}
 	return qualities;
 }
@@ -134,7 +128,7 @@ export async function getPlayUrls(
 	quality: LivePlayQuality,
 ): Promise<string[]> {
 	const urls: string[] = [];
-	const result = await bilibiliClient
+	const result = (await bilibiliClient
 		.get("xlive/web-room/v2/index/getRoomPlayInfo", {
 			searchParams: {
 				room_id: roomId,
@@ -145,7 +139,7 @@ export async function getPlayUrls(
 				qn: quality.data,
 			},
 		})
-		.json();
+		.json()) as any;
 
 	const streamList = result.data.playurl_info.playurl.stream;
 
@@ -171,74 +165,77 @@ export async function getPlayUrls(
 	return urls;
 }
 
-export const getRoomDetail = async (roomId: string): Promise<LiveRoom> => {
+export async function getRoomDetail(roomId: string): Promise<LiveRoom> {
 	try {
-		const response = await bilibiliClient
-			.get("xlive/web-room/v1/index/getH5InfoByRoom", {
-				searchParams: {
-					room_id: roomId,
+		const result = (await ky
+			.get(`https://www.douyu.com/betard/${roomId}`, {
+				headers: {
+					referer: `https://www.douyu.com/${roomId}`,
+					"user-agent":
+						"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.43",
 				},
 			})
-			.json();
+			.json()) as any;
 
-		const roomInfo = response.data;
-		const title = roomInfo.room_info.title;
-		const cover = roomInfo.room_info.cover;
-		const nick = roomInfo.anchor_info.base_info.uname;
-		const avatar = `${roomInfo.anchor_info.base_info.face}@100w.jpg`;
-		const watching = roomInfo.room_info.online;
-		const area = roomInfo.room_info.area_name ?? "";
-		const isLive = roomInfo.room_info.live_status === 1;
-		const liveStatus = isLive ? LiveStatus.live : LiveStatus.offline;
-		const link = `https://live.bilibili.com/${roomId}`;
-		const introduction = roomInfo.room_info.description;
+		const roomInfo = result.room;
 
-		const danmakuResponse = await bilibiliClient
-			.get("xlive/web-room/v1/index/getDanmuInfo", {
-				searchParams: {
-					id: roomId,
+		const jsEncResult = (await ky
+			.get(`https://www.douyu.com/swf_api/homeH5Enc?rids=${roomId}`, {
+				headers: {
+					referer: `https://www.douyu.com/${roomId}`,
+					"user-agent":
+						"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.43",
 				},
 			})
-			.json();
+			.json()) as any;
 
-		const danmakuInfo = danmakuResponse.data;
-		const token = danmakuInfo.token;
-		const serverHosts = danmakuInfo.host_list.map((host) => host.host);
-		const serverHost =
-			serverHosts.length > 0 ? serverHosts[0] : "broadcastlv.chat.live.com";
-		const buvid = await getBuvid();
+		const crptext = jsEncResult.data[`room${roomId}`].toString();
 
 		return {
-			roomId,
-			title,
-			cover,
-			nick,
-			avatar,
-			watching,
-			area,
-			status: isLive,
-			liveStatus,
-			link,
-			introduction,
+			cover: roomInfo.room_pic.toString(),
+			watching: roomInfo.room_biz_all.hot.toString(),
+			roomId: roomId,
+			title: roomInfo.room_name.toString(),
+			nick: roomInfo.owner_name.toString(),
+			avatar: roomInfo.owner_avatar.toString(),
+			introduction: roomInfo.show_details.toString(),
+			area: roomInfo.cate_name?.toString() ?? "",
 			notice: "",
-			platform: "live",
-			danmakuData: {
-				roomId,
-				uid: "",
-				token,
-				serverHost,
-				buvid,
-			},
+			liveStatus:
+				roomInfo.show_status === 1 ? LiveStatus.live : LiveStatus.offline,
+			status: roomInfo.show_status === 1,
+			danmakuData: roomInfo.room_id.toString(),
+			data: await getPlayArgs(crptext, roomInfo.room_id.toString()),
+			platform: "douyu",
+			link: `https://www.douyu.com/${roomId}`,
+			isRecord: roomInfo.videoLoop === 1,
 		};
-	} catch (error) {
-		console.info("error", error);
-		// const liveRoom = settings.getLiveRoomByRoomId(roomId);
-		// liveRoom.liveStatus = LiveStatus.offline;
-		// liveRoom.status = false;
-		// return liveRoom;
-		return {} as any;
+	} catch (e) {
+		// Handle error
+		console.log(e);
+
+		throw e;
 	}
-};
+}
+
+async function getPlayArgs(html: string, rid: string): Promise<string> {
+	// Extract encrypted js
+	const regex = /(vdwdae325w_64we[\s\S]*function ub98484234[\s\S]*?)function/m;
+	const match = html.match(regex);
+	html = match?.[1] ? match[1] : "";
+	html = html.replace(/eval.*?;}/, "strc;}");
+
+	const result = (await ky
+		.post("http://alive.nsapps.cn/api/AllLive/DouyuSign", {
+			json: { html, rid },
+		})
+		.json()) as any;
+
+	if (result.code === 0) {
+		return result.data.toString();
+	}
+	return "";
+}
 
 const getBuvid = async (): Promise<string> => {
 	const BUVID_REGEX = /buvid3=(.*?);/;

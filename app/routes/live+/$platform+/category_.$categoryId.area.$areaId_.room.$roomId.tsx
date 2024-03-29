@@ -1,11 +1,12 @@
 import { Select } from "@mantine/core";
 import type { LoaderFunctionArgs } from "@remix-run/cloudflare";
 import { useLoaderData, useSearchParams } from "@remix-run/react";
-import { getPlayQualites, getPlayUrls } from "~/apis/bilibili";
+import { getPlayQualites, getPlayUrls, getRoomDetail } from "~/apis/bilibili";
 import MyPlayer from "~/components/MyPlayer/MyPlayer";
 
 export const loader = async ({ params, request }: LoaderFunctionArgs) => {
-	const playQualities = await getPlayQualites(params.roomId!);
+	const roomDetail = await getRoomDetail(params.roomId!);
+	const playQualities = await getPlayQualites(roomDetail);
 	const qualityName = new URL(request.url).searchParams.get("quality");
 	const quality =
 		playQualities.find((i) => i.quality === qualityName) ?? playQualities[0];

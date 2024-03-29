@@ -21,7 +21,7 @@ export type LiveCategoryResult = {
 
 export type LiveRoom = {
 	roomId?: string;
-	userId: string;
+	userId?: string;
 	link?: string;
 	title?: string;
 	nick?: string;

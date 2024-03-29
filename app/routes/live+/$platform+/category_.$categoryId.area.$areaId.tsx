@@ -3,7 +3,8 @@ import type { LoaderFunctionArgs } from "@remix-run/cloudflare";
 import { Link, useFetcher, useLoaderData } from "@remix-run/react";
 import { IconEye } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
-import { getCategoryRooms } from "~/apis/bilibili";
+import { getCategoryRooms as biliGetCategoryRooms } from "~/apis/bilibili";
+import { getCategoryRooms as douyuGetCategoryRooms } from "~/apis/douyu";
 import { InfiniteScroller } from "~/components/InfiniteScroller/InfiniteScroller";
 import type { LiveRoom } from "~/types/live";
 
@@ -15,17 +16,33 @@ type LoaderData = {
 };
 
 export const loader = async ({ params, request }: LoaderFunctionArgs) => {
+	const platform = params.platform;
+
 	const url = new URL(request.url);
 	console.info("request.url", request.url);
 	console.info("searchParam page", url.searchParams.get("page"));
 	const page = Number(url.searchParams.get("page") ?? "1");
 	// console.info("page", page);
-	const rooms = await getCategoryRooms(
-		params.categoryId!,
-		params.areaId!,
-		page,
-	);
-	return { rooms, currPage: page };
+	switch (platform) {
+		case "douyu": {
+			const rooms = await douyuGetCategoryRooms(
+				// params.categoryId!,
+				params.areaId!,
+				page,
+			);
+			return { rooms, currPage: page };
+		}
+		case "bilibili": {
+			const rooms = await biliGetCategoryRooms(
+				params.categoryId!,
+				params.areaId!,
+				page,
+			);
+			return { rooms, currPage: page };
+		}
+		default:
+			break;
+	}
 };
 
 export default function AreaDetail() {
