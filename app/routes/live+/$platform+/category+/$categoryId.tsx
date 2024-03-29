@@ -2,7 +2,7 @@ import {
 	Link,
 	useMatches,
 	useParams,
-	useRouteLoaderData
+	useRouteLoaderData,
 } from "@remix-run/react";
 import type { loader as categoryLoader } from "~/routes/live+/$platform+/category+/_layout";
 

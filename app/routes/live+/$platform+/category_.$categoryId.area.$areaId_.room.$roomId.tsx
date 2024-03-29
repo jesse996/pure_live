@@ -54,7 +54,7 @@ export default function RoomDetail() {
 				<Select
 					value={currQuality?.quality}
 					onChange={(value) => {
-						if (value) setSearchParam({ quality: value });
+						if (value) setSearchParam({ quality: value }, { replace: true });
 					}}
 					data={playQualities.map((i) => i.quality)}
 					className={"w-40"}

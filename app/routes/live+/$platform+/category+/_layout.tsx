@@ -15,11 +15,11 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
 	if (!platform) {
 		throw new Error("platform is required");
 	}
-	let liveSite: LiveSite
+	let liveSite: LiveSite;
 
 	switch (platform) {
 		case "bilibili": {
-			liveSite = new BiliBiliSite()
+			liveSite = new BiliBiliSite();
 			const categorys = await liveSite.getCategores(0, 0);
 			return { categorys };
 		}

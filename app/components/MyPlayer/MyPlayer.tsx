@@ -23,7 +23,9 @@ export default function MyPlayer({ playUrl }: Props) {
 			},
 		});
 		dp.on("ready", () => {
-			dp.play();
+			console.log("ready");
+
+			dp.destroy();
 		});
 
 		return () => {
