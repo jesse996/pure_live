@@ -1,3 +1,3 @@
 export default function index() {
-  return <div>in $sid</div>;
+	return <div>in $sid</div>;
 }

@@ -1,3 +1,3 @@
 export default function index() {
-  return <p>inn sys index</p>;
+	return <p>inn sys index</p>;
 }
