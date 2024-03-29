@@ -53,11 +53,6 @@ function playM3u8(video, url, art) {
 	}
 }
 
-// let flvjs
-// if (process.client) {
-// 	flvjs = require('flv.js').default
-// }
-
 async function playFlv(video, url, art) {
 	const flvjs = (await import("flv.js")).default;
 	if (flvjs.isSupported()) {
