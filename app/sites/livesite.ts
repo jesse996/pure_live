@@ -1,9 +1,9 @@
 import {
-  type LiveDanmaku,
   LiveStatus,
   type LiveArea,
   type LiveCategory,
   type LiveCategoryResult,
+  type LiveDanmaku,
   type LivePlayQuality,
   type LiveRoom,
 } from '~/types/live'
