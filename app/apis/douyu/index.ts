@@ -10,7 +10,7 @@ import {
   LivePlayQuality,
 } from "app/types/live";
 
-export async function getCategores(
+export async function getCategories(
   page?: number,
   pageSize?: number
 ): Promise<LiveCategory[]> {

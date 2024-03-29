@@ -5,6 +5,7 @@ const data = [
   { link: "/?tag=技术", label: "技术", icon: IconBellRinging },
   { link: "/?tag=新闻", label: "新闻", icon: IconReceipt2 },
   { link: "/live/bilibili/category", label: "BiliBili", icon: IconReceipt2 },
+  { link: "/live/douyu/category", label: "斗鱼", icon: IconReceipt2 },
 ];
 
 export function NavbarSimple() {

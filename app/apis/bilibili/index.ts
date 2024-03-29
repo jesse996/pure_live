@@ -9,7 +9,7 @@ import {
 } from "app/types/live";
 import ky from "ky";
 
-export const getCategory = async (): Promise<LiveCategory[]> => {
+export const getCategories = async (): Promise<LiveCategory[]> => {
   const result = await bilibiliClient
     .get("room/v1/Area/getList", {
       searchParams: { need_entrance: 1, parent_id: 0 },

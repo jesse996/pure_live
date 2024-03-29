@@ -5,12 +5,33 @@ import {
   useNavigate,
   useParams,
 } from "@remix-run/react";
-import { getCategory } from "~/apis/bilibili";
+import { getCategories as biliGetCategories } from "~/apis/bilibili";
+import { getCategories as douyuGetCategories } from "~/apis/douyu";
+import { LoaderFunctionArgs } from "@remix-run/cloudflare";
 
-export const loader = async () => {
-  const categorys = await getCategory();
+export const loader = async ({ params }: LoaderFunctionArgs) => {
+  const platform = params.platform;
+  if (!platform) {
+    throw new Error("platform is required");
+  }
 
-  return { categorys };
+  switch (platform) {
+    case 'bilibili':
+      {
+        const categorys = await biliGetCategories();
+        return { categorys };
+
+      }
+    case 'douyu':
+      {
+        const categorys = await douyuGetCategories();
+        return { categorys };
+
+      }
+    default:
+      throw new Error(`platform ${platform} is not supported`);
+  }
+
 };
 
 export default function BilibiliCatagory() {

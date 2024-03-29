@@ -6,7 +6,7 @@ import {
   useParams,
   useRouteLoaderData,
 } from "@remix-run/react";
-import { loader as categoryLoader } from "~/routes/live+/bilibili+/category+/_layout";
+import { loader as categoryLoader } from "~/routes/live+/$platform+/category+/_layout";
 
 export default function CategoryIdPage() {
   const params = useParams();

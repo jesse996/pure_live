@@ -3,7 +3,7 @@ import { getCategoryRooms } from "~/apis/bilibili";
 import { Link, useFetcher, useLoaderData } from "@remix-run/react";
 import { IconEye } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
-import { LiveRoom } from "app/types/live";
+import { LiveRoom } from "~/types/live";
 import { InfiniteScroller } from "~/components/InfiniteScroller/InfiniteScroller";
 import { Loader } from "@mantine/core";
 
