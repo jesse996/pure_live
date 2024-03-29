@@ -62,12 +62,12 @@ async function playFlv(video, url, art) {
 	const flvjs = (await import("flv.js")).default;
 	if (flvjs.isSupported()) {
 		if (art.flv) art.flv.destroy();
-		const flv = flvjs.createPlayer({ type: 'flv', url });
+		const flv = flvjs.createPlayer({ type: "flv", url });
 		flv.attachMediaElement(video);
 		flv.load();
 		art.flv = flv;
-		art.on('destroy', () => flv.destroy());
+		art.on("destroy", () => flv.destroy());
 	} else {
-		art.notice.show = 'Unsupported playback format: flv';
+		art.notice.show = "Unsupported playback format: flv";
 	}
 }
