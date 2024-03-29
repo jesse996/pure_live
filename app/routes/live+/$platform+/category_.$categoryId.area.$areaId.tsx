@@ -3,9 +3,9 @@ import type { LoaderFunctionArgs } from "@remix-run/cloudflare";
 import { Link, useFetcher, useLoaderData } from "@remix-run/react";
 import { IconEye } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
-import { getCategoryRooms as biliGetCategoryRooms } from "~/apis/bilibili";
 import { getCategoryRooms as douyuGetCategoryRooms } from "~/apis/douyu";
 import { InfiniteScroller } from "~/components/InfiniteScroller/InfiniteScroller";
+import { BiliBiliSite } from "~/sites/bilibiliSite";
 import type { LiveRoom } from "~/types/live";
 
 type LoaderData = {
@@ -33,9 +33,12 @@ export const loader = async ({ params, request }: LoaderFunctionArgs) => {
 			return { rooms, currPage: page };
 		}
 		case "bilibili": {
-			const rooms = await biliGetCategoryRooms(
-				params.categoryId!,
-				params.areaId!,
+			const site = new BiliBiliSite()
+			const categores = await site.getCategores(0, 0)
+			const category = categores.find((item) => item.id === params.categoryId)
+			const area = category?.children?.find((item) => item.areaId === params.areaId)
+			const rooms = await site.getCategoryRooms(
+				area!,
 				page,
 			);
 			return { rooms, currPage: page };

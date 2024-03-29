@@ -1,10 +1,8 @@
-import { Card, Image, Text } from "@mantine/core";
 import {
 	Link,
 	useMatches,
-	useNavigate,
 	useParams,
-	useRouteLoaderData,
+	useRouteLoaderData
 } from "@remix-run/react";
 import type { loader as categoryLoader } from "~/routes/live+/$platform+/category+/_layout";
 
