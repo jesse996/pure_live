@@ -1,4 +1,5 @@
 import Artplayer from "artplayer";
+// import flvjs from "flv.js";
 import Hls from "hls.js";
 import { useEffect } from "react";
 
@@ -15,9 +16,10 @@ export default function MyPlayer({ playUrl }: Props) {
 			// setting: true,
 			fullscreen: true,
 
-			type: "m3u8",
+			// type: "flv",
 			customType: {
 				m3u8: playM3u8,
+				flv: playFlv,
 			},
 		});
 		dp.on("ready", () => {
@@ -48,5 +50,24 @@ function playM3u8(video, url, art) {
 		video.src = url;
 	} else {
 		art.notice.show = "Unsupported playback format: m3u8";
+	}
+}
+
+// let flvjs
+// if (process.client) {
+// 	flvjs = require('flv.js').default
+// }
+
+async function playFlv(video, url, art) {
+	const flvjs = (await import("flv.js")).default;
+	if (flvjs.isSupported()) {
+		if (art.flv) art.flv.destroy();
+		const flv = flvjs.createPlayer({ type: 'flv', url });
+		flv.attachMediaElement(video);
+		flv.load();
+		art.flv = flv;
+		art.on('destroy', () => flv.destroy());
+	} else {
+		art.notice.show = 'Unsupported playback format: flv';
 	}
 }
