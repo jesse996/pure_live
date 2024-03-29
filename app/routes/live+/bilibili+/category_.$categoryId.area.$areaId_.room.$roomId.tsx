@@ -1,5 +1,5 @@
 import { getPlayQualites, getPlayUrls } from "~/apis/bilibili";
-import { json, LoaderFunctionArgs } from "@remix-run/cloudflare";
+import { LoaderFunctionArgs } from "@remix-run/cloudflare";
 import { useLoaderData, useSearchParams } from "@remix-run/react";
 import MyPlayer from "~/components/MyPlayer/MyPlayer";
 import { Select } from "@mantine/core";
@@ -10,7 +10,7 @@ export const loader = async ({ params, request }: LoaderFunctionArgs) => {
   const quality =
     playQualities.find((i) => i.quality === qualityName) ?? playQualities[0];
   const playUrls = await getPlayUrls(params.roomId!, quality);
-  return json({ playQualities, currQuality: quality, playUrls });
+  return { playQualities, currQuality: quality, playUrls };
 };
 export default function RoomDetail() {
   const { playQualities, playUrls, currQuality } =

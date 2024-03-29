@@ -1,43 +1,63 @@
 import { bilibiliClient } from "~/utils/http-client";
+
+import ky from "ky";
 import {
-  LiveArea,
   LiveCategory,
+  LiveArea,
   LiveCategoryResult,
-  LivePlayQuality,
   LiveRoom,
   LiveStatus,
+  LivePlayQuality,
 } from "app/types/live";
-import ky from "ky";
 
-export const getCategory = async (): Promise<LiveCategory[]> => {
-  const result = await bilibiliClient
-    .get("room/v1/Area/getList", {
-      searchParams: { need_entrance: 1, parent_id: 0 },
-    })
-    .json();
-  const categories: LiveCategory[] = [];
-  for (const item of result["data"]) {
-    const subs: LiveArea[] = [];
-    for (const subItem of item["list"]) {
-      const subCategory = {
-        areaId: subItem["id"].toString(),
-        areaName: subItem["name"] ? subItem["name"] : "",
-        areaType: subItem["parent_id"] ? subItem["parent_id"] : "",
-        typeName: subItem["parent_name"] ? subItem["parent_name"] : "",
-        areaPic: `${subItem["pic"] ? subItem["pic"] : ""}@100w.png`,
-        platform: "live",
-      };
-      subs.push(subCategory);
-    }
-    const category = {
-      children: subs,
-      id: item["id"].toString(),
-      name: item["name"] ? item["name"] : "",
-    };
-    categories.push(category);
+export async function getCategores(
+  page?: number,
+  pageSize?: number
+): Promise<LiveCategory[]> {
+  const categories: LiveCategory[] = [
+    { id: "PCgame", name: "网游竞技", children: [] },
+    { id: "djry", name: "单机热游", children: [] },
+    { id: "syxx", name: "手游休闲", children: [] },
+    { id: "yl", name: "娱乐天地", children: [] },
+    { id: "yz", name: "颜值", children: [] },
+    { id: "kjwh", name: "科技文化", children: [] },
+    { id: "yp", name: "语言互动", children: [] },
+  ];
+
+  for (const item of categories) {
+    const items = await getSubCategories(item);
+    item.children.push(...items);
   }
   return categories;
-};
+}
+
+async function getSubCategories(
+  liveCategory: LiveCategory
+): Promise<LiveArea[]> {
+  const result = (await ky
+    .get("https://www.douyu.com/japi/weblist/api/getC2List", {
+      searchParams: {
+        shortName: liveCategory.id,
+        offset: 0,
+        limit: 200,
+      },
+    })
+    .json()) as any;
+
+  const subs: LiveArea[] = [];
+  for (const item of result["data"]["list"]) {
+    subs.push({
+      areaPic: item["squareIconUrlW"].toString(),
+      areaId: item["cid2"].toString(),
+      typeName: liveCategory.name,
+      areaType: liveCategory.id,
+      platform: "douyu",
+      areaName: item["cname2"].toString(),
+    });
+  }
+
+  return subs;
+}
 
 export async function getCategoryRooms(
   categoryId: string,

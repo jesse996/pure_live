@@ -15,6 +15,9 @@ export default defineConfig({
     remixCloudflareDevProxy(),
     remix({
       // ssr: false,
+      future: {
+        unstable_singleFetch: true,
+      },
       ignoredRouteFiles: ["**/*"],
       routes: async (defineRoutes) => {
         return flatRoutes("routes", defineRoutes);

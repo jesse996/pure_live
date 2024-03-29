@@ -7,6 +7,6 @@ export default function CategoryIndex() {
   const biliData = useRouteLoaderData<typeof bLoader>(
     "routes/live+/bilibili+/category+/_layout"
   );
-  // console.info("biliData", biliData);
+  console.info("biliData", biliData);
   return <Navigate to={`${biliData?.categorys[0].id}`} />;
 }

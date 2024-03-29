@@ -6,12 +6,11 @@ import {
   useParams,
 } from "@remix-run/react";
 import { getCategory } from "~/apis/bilibili";
-import { json } from "@remix-run/cloudflare";
 
 export const loader = async () => {
   const categorys = await getCategory();
 
-  return json({ categorys });
+  return { categorys };
 };
 
 export default function BilibiliCatagory() {

@@ -27,7 +27,7 @@ import { NavigationProgress, nprogress } from "@mantine/nprogress";
 import { NavbarSimple } from "~/components/NavbarSimple/NavbarSimple";
 
 const theme = createTheme({
-  fontFamily: "Open Sans, sans-serif",
+  // fontFamily: "Open Sans, sans-serif",
   // autoContrast: true,
   // primaryColor: "cyan",
 });
@@ -50,17 +50,6 @@ export function Layout({ children }: { children: ReactElement }) {
         </MantineProvider>
         <Scripts />
         <ScrollRestoration />
-        {/*        <script*/}
-        {/*          src="*/}
-        {/*https://cdn.jsdelivr.net/npm/dplayer@1.27.1/dist/DPlayer.min.js*/}
-        {/*"*/}
-        {/*        ></script>*/}
-        {/*<script*/}
-        {/*  type="module"*/}
-        {/*  dangerouslySetInnerHTML={{*/}
-        {/*    __html: ` import dplayer from https://cdn.jsdelivr.net/npm/dplayer@1.27.1/+esm`,*/}
-        {/*  }}*/}
-        {/*></script>*/}
       </body>
     </html>
   );

@@ -1,9 +1,9 @@
-import { json, LoaderFunctionArgs } from "@remix-run/cloudflare";
+import { LoaderFunctionArgs } from "@remix-run/cloudflare";
 import { getCategoryRooms } from "~/apis/bilibili";
 import { Link, useFetcher, useLoaderData } from "@remix-run/react";
 import { IconEye } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
-import { LiveRoom } from "~/types/bilibili";
+import { LiveRoom } from "app/types/live";
 import { InfiniteScroller } from "~/components/InfiniteScroller/InfiniteScroller";
 import { Loader } from "@mantine/core";
 
@@ -25,7 +25,7 @@ export const loader = async ({ params, request }: LoaderFunctionArgs) => {
     params.areaId!,
     page
   );
-  return json({ rooms, currPage: page });
+  return { rooms, currPage: page };
 };
 
 export default function AreaDetail() {
