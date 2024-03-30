@@ -17,6 +17,7 @@ import type {
 import { LiveSite } from './livesite'
 
 import CryptoJS from 'crypto-js'
+import { v4 as uuidv4 } from 'uuid'
 
 const kUserAgent =
   'Mozilla/5.0 (Linux; Android 11; Pixel 5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.91 Mobile Safari/537.36 Edg/117.0.0.0'
@@ -396,6 +397,7 @@ export class HuyaSite extends LiveSite {
     return jsonObj.roomInfo.eLiveStatus === 2
   }
 
+  /// 匿名登录获取uid
   async getAnonymousUid(): Promise<string> {
     const result = (await ky
       .post('https://udblgn.huya.com/web/anonymousLogin', {
@@ -411,37 +413,64 @@ export class HuyaSite extends LiveSite {
         },
       })
       .json()) as any
-    return result.data.uid.toString()
+    const uid = result.data.uid.toString()
+    console.log('uid', uid)
+    return uid
   }
 
   processAnticode(anticode: string, uid: string, streamname: string): string {
+    // const urlParams = new URLSearchParams(anticode)
+    // urlParams.set('ver', '1')
+    // urlParams.set('sv', '2110211124')
+    // urlParams.set('seqid', (Number.parseInt(uid) + Date.now()).toString())
+    // urlParams.set('uid', uid)
+    // urlParams.set('uuid', uuidv4())
+    // const ss = CryptoJS.MD5(
+    //   `${urlParams.get('seqid')}|${urlParams.get('ctype')}|${urlParams.get(
+    //     't'
+    //   )}`
+    // ).toString()
+    // const fmDecoded = Buffer.from(urlParams.get('fm')!, 'base64').toString(
+    //   'utf8'
+    // )
+    // urlParams.set(
+    //   'fm',
+    //   fmDecoded
+    //     .replace('$0', urlParams.get('uid')!)
+    //     .replace('$1', streamname)
+    //     .replace('$2', ss)
+    //     .replace('$3', urlParams.get('wsTime')!)
+    // )
+    // urlParams.set('wsSecret', CryptoJS.MD5(urlParams.get('fm')!).toString())
+    // urlParams.delete('fm')
+    // if (urlParams.has('txyp')) {
+    //   urlParams.delete('txyp')
+    // }
+    // return urlParams.toString()
+    //-----------------
     const query = new URLSearchParams(anticode)
     query.set('t', '102')
     query.set('ctype', 'tars_mp')
-
     const wsTime = (Date.now() / 1000 + 21600).toString(16)
     const seqId = (Date.now() + Number.parseInt(uid)).toString()
-
     const fm = Buffer.from(
       decodeURIComponent(query.get('fm')!),
       'base64'
     ).toString('utf8')
     const wsSecretPrefix = fm.split('_')[0]
-
     const wsSecretHash = CryptoJS.MD5(
       `${seqId}|${query.get('ctype')}|${query.get('t')}`
     ).toString()
+    console.log('wsSecretHash', wsSecretHash)
     const wsSecret = CryptoJS.MD5(
       `${wsSecretPrefix}_${uid}_${streamname}_${wsSecretHash}_${wsTime}`
     ).toString()
-
     const now = new Date()
     const formatted =
       now.getFullYear().toString() +
       (now.getMonth() + 1).toString().padStart(2, '0') +
       now.getDate().toString().padStart(2, '0') +
       now.getHours().toString().padStart(2, '0')
-
     return new URLSearchParams({
       wsSecret: wsSecret,
       wsTime: wsTime,

@@ -124,7 +124,7 @@ export class DouyuSite extends LiveSite {
 			.json()) as any;
 
 		const cdns: string[] = [];
-		console.log("result", result.data);
+		// console.log("result", result.data);
 
 		for (const item of result.data.cdnsWithName) {
 			cdns.push(item.cdn);

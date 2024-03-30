@@ -19,7 +19,7 @@ export const loader = async ({ params, request }: LoaderFunctionArgs) => {
 export default function RoomDetail() {
 	const { playQualities, playUrls, currQuality } =
 		useLoaderData<typeof loader>();
-	console.log("playUrls", playUrls);
+	// console.log("playUrls", playUrls);
 
 	const [, setSearchParam] = useSearchParams();
 
