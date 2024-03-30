@@ -45,7 +45,7 @@ export type LiveRoom = {
 	platform: string;
 	introduction?: string;
 	notice?: string;
-	status?: boolean;
+	status: boolean;
 	data?: any;
 	danmakuData?: any;
 	isRecord?: boolean;

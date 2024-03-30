@@ -22,11 +22,12 @@ export default function MyPlayer({ playUrl }: Props) {
 				flv: playFlv,
 			},
 		});
-		dp.on("ready", () => {
-			console.log("ready");
 
-			dp.destroy();
-		});
+		// dp.on("ready", () => {
+		// 	console.log("ready");
+
+		// 	dp.destroy();
+		// });
 
 		return () => {
 			dp.destroy();

@@ -3,10 +3,10 @@ import type { LoaderFunctionArgs } from "@remix-run/cloudflare";
 import { Link, useFetcher, useLoaderData } from "@remix-run/react";
 import { IconEye } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
-import { getCategoryRooms as douyuGetCategoryRooms } from "~/apis/douyu";
 import { InfiniteScroller } from "~/components/InfiniteScroller/InfiniteScroller";
-import { BiliBiliSite } from "~/sites/bilibiliSite";
+import { getSiteFromPlatform } from "~/sites";
 import type { LiveRoom } from "~/types/live";
+import { loader as categoryLoader } from "./category+/_layout";
 
 type LoaderData = {
 	rooms: {
@@ -15,36 +15,31 @@ type LoaderData = {
 	currPage: number;
 };
 
-export const loader = async ({ params, request }: LoaderFunctionArgs) => {
+export const loader = async ({
+	params,
+	request,
+	context,
+}: LoaderFunctionArgs) => {
 	const platform = params.platform;
+	if (!platform) {
+		throw new Error("platform is required");
+	}
+	const liveSite = getSiteFromPlatform(platform);
 
 	const url = new URL(request.url);
-	console.info("request.url", request.url);
-	console.info("searchParam page", url.searchParams.get("page"));
 	const page = Number(url.searchParams.get("page") ?? "1");
-	// console.info("page", page);
-	switch (platform) {
-		case "douyu": {
-			const rooms = await douyuGetCategoryRooms(
-				// params.categoryId!,
-				params.areaId!,
-				page,
-			);
-			return { rooms, currPage: page };
-		}
-		case "bilibili": {
-			const site = new BiliBiliSite();
-			const categores = await site.getCategores(0, 0);
-			const category = categores.find((item) => item.id === params.categoryId);
-			const area = category?.children?.find(
-				(item) => item.areaId === params.areaId,
-			);
-			const rooms = await site.getCategoryRooms(area!, page);
-			return { rooms, currPage: page };
-		}
-		default:
-			break;
+
+	const categoryLoaderData = (
+		await categoryLoader({ params, request, context })
+	).categorys;
+	const area = categoryLoaderData
+		.find((i) => i.id === params.categoryId)
+		?.children.find((i) => i.areaId === params.areaId);
+	if (!area) {
+		throw new Error("area not found");
 	}
+
+	return { rooms: await liveSite.getCategoryRooms(area, page), currPage: page };
 };
 
 export default function AreaDetail() {
