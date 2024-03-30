@@ -16,7 +16,7 @@ export default defineConfig({
 		remix({
 			// ssr: false,
 			future: {
-				unstable_singleFetch: true,
+				unstable_singleFetch: false,
 			},
 			ignoredRouteFiles: ["**/*"],
 			routes: async (defineRoutes) => {

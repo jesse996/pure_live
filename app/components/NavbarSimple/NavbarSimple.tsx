@@ -7,6 +7,7 @@ const data = [
 	{ link: "/live/bilibili/category", label: "BiliBili", icon: IconReceipt2 },
 	{ link: "/live/douyu/category", label: "斗鱼", icon: IconReceipt2 },
 	{ link: "/live/huya/category", label: "虎牙", icon: IconReceipt2 },
+	{ link: "/live/douyin/category", label: "抖音", icon: IconReceipt2 },
 ];
 
 export function NavbarSimple() {
