@@ -1,5 +1,5 @@
 import { Card, Image, Pagination, SimpleGrid, Text } from "@mantine/core";
-import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/cloudflare";
+import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
 import {
 	type ClientLoaderFunctionArgs,
 	Link,
@@ -8,7 +8,7 @@ import {
 } from "@remix-run/react";
 import { supabaseClient } from "~/utils";
 
-export const meta: MetaFunction<typeof loader> = ({}) => {
+export const meta: MetaFunction<typeof loader> = ({ }) => {
 	return [{ title: "新新闻" }];
 };
 
@@ -71,10 +71,10 @@ export default function Index() {
 						<Card
 							shadow="sm"
 							padding="xl"
-							// h={200}
-							// component="a"
-							// href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-							// target="_blank"
+						// h={200}
+						// component="a"
+						// href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+						// target="_blank"
 						>
 							<Card.Section>
 								<Image

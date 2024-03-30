@@ -1,5 +1,5 @@
 import { Select } from "@mantine/core";
-import type { LoaderFunctionArgs } from "@remix-run/cloudflare";
+import type { LoaderFunctionArgs } from "@remix-run/node";
 import { useLoaderData, useSearchParams } from "@remix-run/react";
 import MyPlayer from "~/components/MyPlayer/MyPlayer";
 import { getSiteFromPlatform } from "~/sites";

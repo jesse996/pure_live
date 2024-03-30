@@ -1,5 +1,5 @@
 import { TypographyStylesProvider } from "@mantine/core";
-import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/cloudflare";
+import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import Markdown from "react-markdown";
 import { supabaseClient } from "~/utils";

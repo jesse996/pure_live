@@ -1,5 +1,5 @@
 import { Loader } from "@mantine/core";
-import type { LoaderFunctionArgs } from "@remix-run/cloudflare";
+import type { LoaderFunctionArgs } from "@remix-run/node";
 import { Link, useFetcher, useLoaderData } from "@remix-run/react";
 import { IconEye } from "@tabler/icons-react";
 import { useEffect, useState } from "react";

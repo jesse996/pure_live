@@ -1,5 +1,5 @@
 import { Tabs } from "@mantine/core";
-import type { LoaderFunctionArgs } from "@remix-run/cloudflare";
+import type { LoaderFunctionArgs } from "@remix-run/node";
 import {
 	Outlet,
 	useLoaderData,
