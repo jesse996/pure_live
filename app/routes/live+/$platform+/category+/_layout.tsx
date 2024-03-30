@@ -1,12 +1,15 @@
 import { Tabs } from "@mantine/core";
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import {
+	ClientLoaderFunctionArgs,
 	Outlet,
 	useLoaderData,
 	useNavigate,
 	useParams,
 } from "@remix-run/react";
 import { getSiteFromPlatform } from "~/sites";
+import { cacheClientLoader, useCachedLoaderData } from "remix-client-cache";
+
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
 	const platform = params.platform;
@@ -18,8 +21,17 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
 	return { categorys: await liveSite.getCategores(0, 0) };
 };
 
+// Caches the loader data on the client
+export const clientLoader = (args: ClientLoaderFunctionArgs) => cacheClientLoader(args);
+
+// make sure you turn this flag on
+clientLoader.hydrate = true;
+
+
+
+
 export default function BilibiliCatagory() {
-	const { categorys } = useLoaderData<typeof loader>();
+	const { categorys } = useCachedLoaderData<typeof loader>();
 	const params = useParams();
 	const categoryId = params.categoryId;
 	const navigate = useNavigate();

@@ -1,6 +1,7 @@
 import { Select } from "@mantine/core";
 import type { LoaderFunctionArgs } from "@remix-run/node";
-import { useLoaderData, useSearchParams } from "@remix-run/react";
+import { ClientLoaderFunctionArgs, useLoaderData, useSearchParams } from "@remix-run/react";
+import { cacheClientLoader, useCachedLoaderData } from "remix-client-cache";
 import MyPlayer from "~/components/MyPlayer/MyPlayer";
 import { getSiteFromPlatform } from "~/sites";
 
@@ -16,9 +17,16 @@ export const loader = async ({ params, request }: LoaderFunctionArgs) => {
 	const playUrls = await liveSite.getPlayUrls(roomDetail, quality);
 	return { playQualities, currQuality: quality, playUrls };
 };
+
+// Caches the loader data on the client
+export const clientLoader = (args: ClientLoaderFunctionArgs) => cacheClientLoader(args);
+
+// make sure you turn this flag on
+clientLoader.hydrate = true;
+
 export default function RoomDetail() {
 	const { playQualities, playUrls, currQuality } =
-		useLoaderData<typeof loader>();
+		useCachedLoaderData<typeof loader>();
 	console.log("playUrls", playUrls);
 
 	const [, setSearchParam] = useSearchParams();

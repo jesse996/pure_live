@@ -83,6 +83,9 @@ dependencies:
   react-player:
     specifier: ^2.15.1
     version: 2.15.1(react@19.0.0-canary-a73c3450e-20240329)
+  remix-client-cache:
+    specifier: ^1.0.1
+    version: 1.0.1(@remix-run/react@2.9.0-pre.1)(react-dom@19.0.0-canary-a73c3450e-20240329)(react@19.0.0-canary-a73c3450e-20240329)
   tailwindcss:
     specifier: 4.0.0-alpha.11
     version: 4.0.0-alpha.11
@@ -6654,6 +6657,18 @@ packages:
       mdast-util-to-hast: 13.1.0
       unified: 11.0.4
       vfile: 6.0.1
+    dev: false
+
+  /remix-client-cache@1.0.1(@remix-run/react@2.9.0-pre.1)(react-dom@19.0.0-canary-a73c3450e-20240329)(react@19.0.0-canary-a73c3450e-20240329):
+    resolution: {integrity: sha512-hmCBgf5fWBEmlt2WfTB1GTzkZWTaYYXLBe3BMnr7niMibnww40Nc1Rad3rL+NjR/W/l0176daJG1X5hcaBCbEw==}
+    peerDependencies:
+      '@remix-run/react': ^2.5.0
+      react: ^18.2.0
+      react-dom: ^18.2.0
+    dependencies:
+      '@remix-run/react': 2.9.0-pre.1(react-dom@19.0.0-canary-a73c3450e-20240329)(react@19.0.0-canary-a73c3450e-20240329)(typescript@5.4.3)
+      react: 19.0.0-canary-a73c3450e-20240329
+      react-dom: 19.0.0-canary-a73c3450e-20240329(react@19.0.0-canary-a73c3450e-20240329)
     dev: false
 
   /remix-development-tools@4.1.4(@remix-run/react@2.9.0-pre.1)(@types/react-dom@18.2.23)(@types/react@18.2.73)(react-dom@19.0.0-canary-a73c3450e-20240329)(react@19.0.0-canary-a73c3450e-20240329)(vite@5.2.7):

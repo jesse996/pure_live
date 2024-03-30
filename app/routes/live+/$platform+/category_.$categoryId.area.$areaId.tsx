@@ -1,12 +1,13 @@
 import { Loader } from "@mantine/core";
 import type { LoaderFunctionArgs } from "@remix-run/node";
-import { Link, useFetcher, useLoaderData } from "@remix-run/react";
+import { ClientLoaderFunctionArgs, Link, useFetcher, useLoaderData } from "@remix-run/react";
 import { IconEye } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
 import { InfiniteScroller } from "~/components/InfiniteScroller/InfiniteScroller";
 import { getSiteFromPlatform } from "~/sites";
 import type { LiveRoom } from "~/types/live";
 import { loader as categoryLoader } from "./category+/_layout";
+import { cacheClientLoader, useCachedLoaderData } from "remix-client-cache";
 
 type LoaderData = {
 	rooms: {
@@ -42,8 +43,14 @@ export const loader = async ({
 	return { rooms: await liveSite.getCategoryRooms(area, page), currPage: page };
 };
 
+// Caches the loader data on the client
+export const clientLoader = (args: ClientLoaderFunctionArgs) => cacheClientLoader(args);
+
+// make sure you turn this flag on
+clientLoader.hydrate = true;
+
 export default function AreaDetail() {
-	const { rooms, currPage } = useLoaderData<LoaderData>();
+	const { rooms, currPage } = useCachedLoaderData<LoaderData>();
 	const [allRooms, setAllRooms] = useState(rooms.items);
 	const fetcher = useFetcher<LoaderData>();
 

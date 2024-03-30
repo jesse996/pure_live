@@ -10,6 +10,7 @@ export default function CategoryIdPage() {
 	const params = useParams();
 	// useRouteLoaderData('live.')
 	const matched = useMatches();
+
 	const categorys = useRouteLoaderData<typeof categoryLoader>(
 		matched.at(-2)?.id ?? "",
 	)?.categorys;
