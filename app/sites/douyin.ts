@@ -67,7 +67,7 @@ export class DouyinSite extends LiveSite {
 
       return headers
     } catch (e) {
-      console.error(e.message)
+      console.error(e)
       return headers
     }
   }
