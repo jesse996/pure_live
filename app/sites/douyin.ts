@@ -312,7 +312,6 @@ export class DouyinSite extends LiveSite {
       .replace(/\\"/g, '"')
       .replace(/\\\\/g, '\\')
       .replace(']\\n', '')
-    console.log('renderData', str)
 
     const renderDataJson = JSON.parse(str ?? '{}')
 
