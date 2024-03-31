@@ -98,19 +98,15 @@ function MyLayout({ children }: { children: ReactElement }) {
             visibleFrom="sm"
             size="sm"
           />
-          <Link to={"/"}>娱乐娱乐</Link>
+          <Link to={"/"}>纯粹直播</Link>
         </Group>
       </AppShell.Header>
 
       <AppShell.Navbar p="md">
-        <NavbarSimple />
+        <NavbarSimple toggleMobile={toggleMobile} />
       </AppShell.Navbar>
 
-      <AppShell.Main>
-        {/*<Container size={"xl"}>*/}
-        {children}
-        {/*</Container>*/}
-      </AppShell.Main>
+      <AppShell.Main>{children}</AppShell.Main>
     </AppShell>
   );
 }
