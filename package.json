@@ -1,5 +1,5 @@
 {
-	"name": "remix-demo",
+	"name": "pure_live",
 	"private": true,
 	"sideEffects": false,
 	"type": "module",
@@ -23,9 +23,9 @@
 		"@mantine/form": "^7.7.1",
 		"@mantine/hooks": "^7.7.1",
 		"@mantine/nprogress": "^7.7.1",
-		"@remix-run/cloudflare": "^2.9.0-pre.1",
-		"@remix-run/cloudflare-pages": "^2.9.0-pre.1",
-		"@remix-run/react": "^2.9.0-pre.1",
+		"@remix-run/cloudflare": "^2.8.1",
+		"@remix-run/cloudflare-pages": "^2.8.1",
+		"@remix-run/react": "^2.8.1",
 		"@supabase/supabase-js": "^2.41.1",
 		"@tabler/icons-react": "^3.1.0",
 		"@tailwindcss/vite": "4.0.0-alpha.11",
@@ -47,7 +47,7 @@
 	"devDependencies": {
 		"@biomejs/biome": "1.6.3",
 		"@cloudflare/workers-types": "^4.20240320.1",
-		"@remix-run/dev": "^2.9.0-pre.1",
+		"@remix-run/dev": "^2.8.1",
 		"@types/crypto-js": "^4.2.2",
 		"@types/react": "^18.2.73",
 		"@types/react-dom": "^18.2.23",
