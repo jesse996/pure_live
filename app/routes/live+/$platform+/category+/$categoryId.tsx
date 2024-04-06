@@ -22,7 +22,7 @@ export default function CategoryIdPage() {
     <div className={""}>
       <div
         className={
-          "grid grid-cols-[repeat(auto-fill,minmax(150px,1fr))] justify-center gap-3"
+          "grid grid-cols-[repeat(auto-fill,minmax(150px,1fr))] justify-center gap-3 "
         }
       >
         {currentCategory?.children.map((item) => (
