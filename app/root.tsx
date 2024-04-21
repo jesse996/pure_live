@@ -114,6 +114,7 @@ function MyLayout({ children }: { children: ReactElement }) {
 export function ErrorBoundary() {
   const error: any = useRouteError();
   console.info("🚀 ~ error", error);
+
   if (isRouteErrorResponse(error)) {
     return (
       <>
