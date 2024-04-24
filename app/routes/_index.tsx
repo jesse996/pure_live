@@ -14,49 +14,7 @@ export const meta: MetaFunction<typeof loader> = ({}) => {
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   throw redirect("/live/bilibili/category/2");
-  // const searchParams = new URL(request.url).searchParams;
-  // const currPage = Number(searchParams.get("page") ?? 1);
-  // const tag = searchParams.get("tag") ?? "";
-  // const limit = 16;
-  // const start = (currPage - 1) * limit;
-  // const end = start + limit - 1;
-  // let query = supabaseClient
-  //   .from("sys_article")
-  //   .select("id,title", { count: "estimated", head: false })
-  //   .range(start, end)
-  //   .order("id", { ascending: false });
-  // if (tag) {
-  //   query = query.containedBy("tag", [tag]);
-  // }
-  // const { count, data: list, error } = await query;
-  //
-  // if (error) throw error;
-  // let host = new URL(request.url).host;
-  // host = host.replaceAll(".", "");
-  // host = host.replaceAll(":", "");
-  // return {
-  //   totalPage: ((count! / limit) | 0) + 1,
-  //   currPage,
-  //   list,
-  //   host,
-  //   tag,
-  // };
 };
-
-let cache: any;
-export const clientLoader = async ({
-  serverLoader,
-  request,
-}: ClientLoaderFunctionArgs) => {
-  const searchParams = new URL(request.url).searchParams;
-  const pg = Number(searchParams.get("page") ?? 1);
-  const tag = searchParams.get("tag");
-  if (cache && cache.currPage === pg && cache.tag === tag) return cache;
-  const data = await serverLoader();
-  cache = data;
-  return data;
-};
-clientLoader.hydrate = true;
 
 // export default function Index() {
 //   const { totalPage, currPage, list, host } = useLoaderData<typeof loader>();
