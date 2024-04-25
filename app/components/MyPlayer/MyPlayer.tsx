@@ -41,7 +41,7 @@ export default function MyPlayer({ playUrl }: Props) {
   );
 }
 
-function playM3u8(video, url, art) {
+function playM3u8(video: any, url: string, art: any) {
   if (Hls.isSupported()) {
     if (art.hls) art.hls.destroy();
     const hls = new Hls();
@@ -56,7 +56,7 @@ function playM3u8(video, url, art) {
   }
 }
 
-async function playFlv(video, url, art) {
+async function playFlv(video: any, url: string, art: any) {
   const flvjs = (await import("flv.js")).default;
   if (flvjs.isSupported()) {
     if (art.flv) art.flv.destroy();

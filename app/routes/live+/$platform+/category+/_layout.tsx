@@ -3,7 +3,6 @@ import type { LoaderFunctionArgs } from "@remix-run/node";
 import {
   ClientLoaderFunctionArgs,
   Outlet,
-  useLoaderData,
   useNavigate,
   useParams,
 } from "@remix-run/react";
@@ -29,6 +28,7 @@ clientLoader.hydrate = true;
 
 export default function BilibiliCatagory() {
   const { categorys } = useCachedLoaderData<typeof loader>();
+  console.info("categorys", categorys);
   const params = useParams();
   const categoryId = params.categoryId;
   const navigate = useNavigate();
@@ -42,7 +42,7 @@ export default function BilibiliCatagory() {
         }}
       >
         <Tabs.List>
-          {categorys.map((item) => (
+          {categorys?.map((item) => (
             <Tabs.Tab key={item.id} value={item.id}>
               <div>{item.name}</div>
             </Tabs.Tab>

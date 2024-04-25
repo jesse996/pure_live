@@ -22,7 +22,7 @@ import {
   useNavigation,
   useRouteError,
 } from "@remix-run/react";
-import { type ReactElement, useEffect } from "react";
+import { type ReactElement, Suspense, useEffect } from "react";
 import { NavbarSimple } from "~/components/NavbarSimple/NavbarSimple";
 
 const theme = createTheme({
@@ -55,7 +55,11 @@ export function Layout({ children }: { children: ReactElement }) {
 }
 
 export default function App() {
-  return <Outlet />;
+  return (
+    <Suspense fallback={<div>loading...</div>}>
+      <Outlet />
+    </Suspense>
+  );
 }
 
 function MyLayout({ children }: { children: ReactElement }) {
@@ -112,7 +116,7 @@ function MyLayout({ children }: { children: ReactElement }) {
 }
 
 export function ErrorBoundary() {
-  const error = useRouteError();
+  const error: any = useRouteError();
   console.info(error);
 
   if (isRouteErrorResponse(error)) {
