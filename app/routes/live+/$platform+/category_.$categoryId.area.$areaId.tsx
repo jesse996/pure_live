@@ -2,6 +2,7 @@ import { Loader } from "@mantine/core";
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import {
   ClientLoaderFunctionArgs,
+  FetcherWithComponents,
   Link,
   useFetcher,
   useLoaderData,
@@ -37,7 +38,7 @@ export const loader = async ({
 
   const categoryLoaderData = (
     await categoryLoader({ params, request, context })
-  ).categorys;
+  ).categories;
   const area = categoryLoaderData
     .find((i) => i.id === params.categoryId)
     ?.children.find((i) => i.areaId === params.areaId);
@@ -58,7 +59,7 @@ clientLoader.hydrate = true;
 export default function AreaDetail() {
   const { rooms, currPage } = useCachedLoaderData<LoaderData>();
   const [allRooms, setAllRooms] = useState(rooms.items);
-  const fetcher = useFetcher<LoaderData>();
+  const fetcher = useFetcher<typeof loader>();
 
   // An effect for appending data to items state
   useEffect(() => {

@@ -13,7 +13,7 @@ export default function CategoryIdPage() {
 
   const categorys = useRouteLoaderData<typeof categoryLoader>(
     matched.at(-2)?.id ?? ""
-  )?.categorys;
+  )?.categories;
 
   const categoryId = params.categoryId;
   const currentCategory = categorys?.find((item) => item.id === categoryId);

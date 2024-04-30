@@ -3,6 +3,7 @@ import type { LoaderFunctionArgs } from "@remix-run/node";
 import {
   ClientLoaderFunctionArgs,
   Outlet,
+  useLoaderData,
   useNavigate,
   useParams,
 } from "@remix-run/react";
@@ -16,7 +17,7 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
   }
   const liveSite = getSiteFromPlatform(platform);
 
-  return { categorys: await liveSite.getCategores(0, 0) };
+  return { categories: await liveSite.getCategores(0, 0) };
 };
 
 // Caches the loader data on the client
@@ -27,8 +28,7 @@ export const clientLoader = (args: ClientLoaderFunctionArgs) =>
 clientLoader.hydrate = true;
 
 export default function BilibiliCatagory() {
-  const { categorys } = useCachedLoaderData<typeof loader>();
-  console.info("categorys", categorys);
+  const { categories } = useLoaderData<typeof loader>();
   const params = useParams();
   const categoryId = params.categoryId;
   const navigate = useNavigate();
@@ -42,7 +42,7 @@ export default function BilibiliCatagory() {
         }}
       >
         <Tabs.List>
-          {categorys?.map((item) => (
+          {categories?.map((item) => (
             <Tabs.Tab key={item.id} value={item.id}>
               <div>{item.name}</div>
             </Tabs.Tab>
