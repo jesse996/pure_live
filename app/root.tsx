@@ -24,6 +24,8 @@ import {
 } from "@remix-run/react";
 import { type ReactElement, Suspense, useEffect } from "react";
 import { NavbarSimple } from "~/components/NavbarSimple/NavbarSimple";
+import { StyleProvider } from "@ant-design/cssinjs";
+import "../public/antd.min.css";
 
 const theme = createTheme({
   // fontFamily: "Open Sans, sans-serif",
@@ -43,10 +45,12 @@ export function Layout({ children }: { children: ReactElement }) {
         <Links />
       </head>
       <body>
-        <MantineProvider theme={theme}>
-          <NavigationProgress />
-          <MyLayout>{children}</MyLayout>
-        </MantineProvider>
+        {/*<MantineProvider theme={theme}>*/}
+        {/*  <NavigationProgress />*/}
+        {/*<MyLayout>*/}
+        {children}
+        {/*</MyLayout>*/}
+        {/*</MantineProvider>*/}
         <Scripts />
         <ScrollRestoration />
       </body>
@@ -56,9 +60,11 @@ export function Layout({ children }: { children: ReactElement }) {
 
 export default function App() {
   return (
-    <Suspense fallback={<div>loading...</div>}>
+    // <Suspense fallback={<div>loading...</div>}>
+    <StyleProvider hashPriority="high">
       <Outlet />
-    </Suspense>
+    </StyleProvider>
+    // </Suspense>
   );
 }
 
