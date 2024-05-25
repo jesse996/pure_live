@@ -1,7 +1,7 @@
 import { vitePlugin as remix } from "@remix-run/dev";
 import { installGlobals } from "@remix-run/node";
 
-import tailwindcss from "@tailwindcss/vite";
+// import tailwindcss from "@tailwindcss/vite";
 import { remixDevTools } from "remix-development-tools";
 import { flatRoutes } from "remix-flat-routes";
 import { defineConfig } from "vite";
@@ -11,7 +11,7 @@ installGlobals();
 
 export default defineConfig({
   plugins: [
-    tailwindcss(),
+    // tailwindcss(),
     remixDevTools(),
     remix({
       // ssr: false,

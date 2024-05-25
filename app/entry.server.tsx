@@ -64,7 +64,7 @@ function handleBotRequest(
           resolve(
             new Response(stream, {
               headers: responseHeaders,
-              status: responseStatusCode,
+              status: responseStatusCode
             })
           );
 

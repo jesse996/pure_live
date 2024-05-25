@@ -1,6 +1,6 @@
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
-// import { Input,Button } from "@mantine/core";
-import { Input, Button } from "antd";
+import { Controller, useForm } from "react-hook-form";
+
+import { Button, Input } from "antd";
 
 type Inputs = {
   example: string;
@@ -14,16 +14,21 @@ export default function Demo() {
     handleSubmit,
     formState: { errors },
   } = useForm<Inputs>();
+
   const onSubmit = (data) => console.log(data);
-  console.log(errors);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Controller
-        name={"example"}
-        control={control}
-        render={({ field }) => <Input {...field} />}
-      />
+      {/*<Controller*/}
+      {/*  name={"example"}*/}
+      {/*  control={control}*/}
+      {/*  render={({ field }) => (*/}
+      {/*    <div className="flex ">*/}
+      {/*      <label className={"shrink-0"}>名称</label>*/}
+      {/*      <Input {...field} className={"w-auto bg-red-200"} />*/}
+      {/*    </div>*/}
+      {/*  )}*/}
+      {/*/>*/}
       <Button>aa</Button>
       <input type="submit" />
     </form>

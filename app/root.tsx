@@ -1,37 +1,20 @@
-import "@mantine/core/styles.css";
-import "@mantine/nprogress/styles.css";
 import "./root.css";
+import "../public/antd.min.css";
 
 import {
-  AppShell,
-  Burger,
-  Group,
-  MantineProvider,
-  createTheme,
-} from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
-import { NavigationProgress, nprogress } from "@mantine/nprogress";
-import {
+  isRouteErrorResponse,
   Link,
   Links,
   Meta,
   Outlet,
   Scripts,
   ScrollRestoration,
-  isRouteErrorResponse,
   useNavigation,
   useRouteError,
 } from "@remix-run/react";
-import { type ReactElement, Suspense, useEffect } from "react";
+import { type ReactElement, useEffect } from "react";
 import { NavbarSimple } from "~/components/NavbarSimple/NavbarSimple";
 import { StyleProvider } from "@ant-design/cssinjs";
-import "../public/antd.min.css";
-
-const theme = createTheme({
-  // fontFamily: "Open Sans, sans-serif",
-  // autoContrast: true,
-  // primaryColor: "cyan",
-});
 
 export function Layout({ children }: { children: ReactElement }) {
   return (
@@ -45,14 +28,10 @@ export function Layout({ children }: { children: ReactElement }) {
         <Links />
       </head>
       <body>
-        {/*<MantineProvider theme={theme}>*/}
-        {/*  <NavigationProgress />*/}
-        {/*<MyLayout>*/}
         {children}
-        {/*</MyLayout>*/}
-        {/*</MantineProvider>*/}
         <Scripts />
         <ScrollRestoration />
+        <script src="../node_modules/flowbite/dist/flowbite.js"></script>
       </body>
     </html>
   );
@@ -60,64 +39,9 @@ export function Layout({ children }: { children: ReactElement }) {
 
 export default function App() {
   return (
-    // <Suspense fallback={<div>loading...</div>}>
-    <StyleProvider hashPriority="high">
+    <StyleProvider layer>
       <Outlet />
     </StyleProvider>
-    // </Suspense>
-  );
-}
-
-function MyLayout({ children }: { children: ReactElement }) {
-  const [mobileOpened, { toggle: toggleMobile }] = useDisclosure();
-  const [desktopOpened, { toggle: toggleDesktop }] = useDisclosure(true);
-  // const pinned = useHeadroom({ fixedAt: 120 });
-  const navigation = useNavigation();
-
-  useEffect(() => {
-    if (navigation.state !== "idle") {
-      // console.info("nprogress", nprogress);
-      nprogress.start();
-    } else {
-      nprogress.complete();
-    }
-  }, [navigation]);
-
-  return (
-    <AppShell
-      header={{ height: 60 }}
-      navbar={{
-        width: 200,
-        breakpoint: "sm",
-        collapsed: { mobile: !mobileOpened, desktop: !desktopOpened },
-      }}
-      padding="md"
-    >
-      <AppShell.Header>
-        {/*<HeaderSimple />*/}
-        <Group h="100%" px="md">
-          <Burger
-            opened={mobileOpened}
-            onClick={toggleMobile}
-            hiddenFrom="sm"
-            size="sm"
-          />
-          <Burger
-            opened={desktopOpened}
-            onClick={toggleDesktop}
-            visibleFrom="sm"
-            size="sm"
-          />
-          <Link to={"/"}>纯粹直播</Link>
-        </Group>
-      </AppShell.Header>
-
-      <AppShell.Navbar p="md">
-        <NavbarSimple toggleMobile={toggleMobile} />
-      </AppShell.Navbar>
-
-      <AppShell.Main>{children}</AppShell.Main>
-    </AppShell>
   );
 }
 
