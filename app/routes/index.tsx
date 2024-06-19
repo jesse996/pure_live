@@ -1,65 +1,48 @@
-import { Link } from "@remix-run/react";
-import {
-  Accordion,
-  Button,
-  Datepicker,
-  Modal,
-  Sidebar,
-  Tooltip,
-} from "flowbite-react";
+"use client";
+
 import { useState } from "react";
-import {
-  HiArrowSmRight,
-  HiChartPie,
-  HiInbox,
-  HiOutlineExclamationCircle,
-  HiShoppingBag,
-  HiTable,
-  HiUser,
-  HiViewBoards,
-} from "react-icons/hi";
+import { motion } from "framer-motion";
 
 export default function IndexPage() {
-  const [openModal, setOpenModal] = useState(false);
+  const [x, setX] = useState(0);
+  const [y, setY] = useState(0);
+  const [rotate, setRotate] = useState(0);
 
   return (
     <>
-      <Sidebar aria-label="Default sidebar example">
-        <Sidebar.Items>
-          <Sidebar.ItemGroup>
-            <Sidebar.Item href="#" icon={HiChartPie}>
-              Dashboard
-            </Sidebar.Item>
-            <Sidebar.Item
-              href="#"
-              icon={HiViewBoards}
-              label="Pro"
-              labelColor="dark"
-            >
-              Kanban
-            </Sidebar.Item>
-            <Sidebar.Item href="#" icon={HiInbox} label="3">
-              Inbox
-            </Sidebar.Item>
-            <Sidebar.Item href="#" icon={HiUser}>
-              Users
-            </Sidebar.Item>
-            <Sidebar.Item href="#" icon={HiShoppingBag}>
-              Products
-            </Sidebar.Item>
-            <Sidebar.Item href="#" icon={HiArrowSmRight}>
-              Sign In
-            </Sidebar.Item>
-            <Sidebar.Item href="#" icon={HiTable}>
-              Sign Up
-            </Sidebar.Item>
-          </Sidebar.ItemGroup>
-        </Sidebar.Items>
-      </Sidebar>
+      <div className="inputs">
+        x:
+        <input
+          type="range"
+          value={x}
+          onChange={(e) => setX(Number(e.target.value))}
+        />
+        y:
+        <input
+          type="range"
+          value={y}
+          onChange={(e) => setY(Number(e.target.value))}
+        />
+        rotate
+        <input
+          type="range"
+          value={rotate}
+          onChange={(e) => setRotate(Number(e.target.value))}
+        />
+      </div>
+      <div>
+        <motion.div
+          className={"w-40 h-40 bg-blue-400 rounded-full flex"}
+          // animate={{ x, y, rotate }}
+          // // transition={{ type: "spring" }}
 
-      <Tooltip content={<div className={"bg-red-700"}>dasd</div>}>
-        <Button>Default tooltip</Button>
-      </Tooltip>
+          // whileHover={{ scale: 1.2 }}
+          // whileTap={{ scale: 1.1 }}
+          // drag="x"
+          // dragConstraints={{ left: -100, right: 100 }}
+          animate={{ x: [0, 100, 0] }}
+        />
+      </div>
     </>
   );
 }
